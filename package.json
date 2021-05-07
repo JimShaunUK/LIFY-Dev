@@ -1,0 +1,33 @@
+{
+  "name": "lify",
+  "version": "1.0.0",
+  "description": "Cooperative Ecommerce platform",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix lify",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "data:seed": "node backend/seeder",
+    "data:wipe": "node backend/seeder -d"
+  },
+  "keywords": [
+    "shopping"
+  ],
+  "author": "James Shaun",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "concurrently": "^6.0.2",
+    "dotenv": "^9.0.0",
+    "express": "^4.17.1",
+    "express-async-handler": "^1.1.4",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.12.7",
+    "multer": "^1.4.2",
+    "nodemon": "^2.0.7",
+    "stripe": "^8.147.0"
+  }
+}
