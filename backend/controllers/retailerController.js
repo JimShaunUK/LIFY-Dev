@@ -17,6 +17,15 @@ const getRetailers = asyncHandler(async (req, res) =>{
     }
     //get lat/long from user request
     const userlocation = req.body.location
+   
+    if (!userlocation){
+        const presetLocation = await Town.find({})
+        var data = {
+            message: "Location unavailable, please select an established town",
+            towns: presetLocation
+        }
+        res.json(data)
+    }
 
     //get store locations
     const towns = await Town.find({})
@@ -34,6 +43,17 @@ const getRetailers = asyncHandler(async (req, res) =>{
             break
         }
     }
+
+    if (!closest){
+        
+        const presetLocation = await Town.find({})
+        var data = {
+            message: "No nearby locations, please select an established town",
+            towns: presetLocation
+        }
+        res.json(data)
+    }
+    
     //find selected town with closest lat and long from DB
     const nearest = await Town.findOne({rawLocation:closest})
 
