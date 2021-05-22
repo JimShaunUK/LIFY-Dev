@@ -10,7 +10,14 @@
     "server": "nodemon backend/server",
     "client": "npm start --prefix lify",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "data:seed": "node backend/seeder",
+    "data:importusers": "node backend/seeders/seeder",
+    "data:importstores": "node backend/seeders/seeder -s",
+    "data:importtowns": "node backend/seeders/seeder -t",
+    "data:importproducts": "node backend/seeders/seeder -p",
+    "data:importorder": "node backend/seeders/seeder -o",
+    "data:importstoreorder": "node backend/seeders/seeder -so",
+    "data:importfault": "node backend/seeders/seeder -tst",
+    "data:importfix": "node backend/seeders/seeder -f",
     "data:wipe": "node backend/seeder -d"
   },
   "keywords": [
