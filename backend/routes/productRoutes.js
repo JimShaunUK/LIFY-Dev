@@ -1,12 +1,13 @@
 import express from 'express'
 const router = express.Router()
 import { getProducts, 
-    getProductById, 
+    getProductById,
+    sendLocation 
  } from '../controllers/productController.js'
 import {protect, adminCheck} from '../middleware/authorizeMiddleware.js'
 
 //get all products from backend
-router.route('/').get(getProducts)
+router.route('/').post(getProducts)
 
 
 //get one product

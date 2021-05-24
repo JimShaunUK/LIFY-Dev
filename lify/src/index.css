@@ -1,13 +1,210 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/*Load in branding font*/
+@font-face {
+  font-family: Nanti;
+  src: url(font/Nanti.otf);
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+*{
+  margin:0;
+  padding:0;
 }
+
+body,html{
+  height:100%;
+  margin:0;
+}
+
+a{
+  text-decoration:line-through;
+}
+
+.shop-header{
+  font-family:arial;
+  letter-spacing: 0.2rem;
+  font-size:0.9rem;
+  color:black;
+  
+}
+
+.shop-link{
+  font-family:arial;
+  letter-spacing: 0.2rem;
+  font-size:0.7rem;
+  text-decoration: underline;
+  color:black;
+  padding:0;
+  margin-top:-3%;
+}
+
+.shop-text{
+  font-family:arial;
+  letter-spacing: 0.2rem;
+  font-size:0.7rem;
+  padding:0;
+  margin-top:-3%;
+}
+
+.cont{
+  height:80vh;
+}
+.bg {
+  /* The image used */
+  background-image: url("mainbg.jpg");
+
+  /* Full height */
+  height: 100%; 
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1, h2, h3{
+  font-family: Nanti;
+  letter-spacing: 0.6rem;
+}
+
+h4, h5, h6{
+  font-family: Nanti;
+  letter-spacing: 0.3rem;
+}
+
+
+.grey-section{
+  background-color:#9E9E9E;
+}
+
+.dark-grey-section{
+  background-color:#565656;
+}
+
+.white{
+  color:white;
+}
+
+.white-text{
+  text-align:center;
+  color:white;
+  font-family: Nanti;
+  letter-spacing: 0.2rem;
+  font-size:1.4rem
+}
+
+.underline{
+  text-decoration: underline;
+}
+
+.link-white{
+  color:white;
+  font-family:Nanti;
+  text-decoration: underline;
+}
+
+.item{
+  flex: 0 0 auto;
+  background-color:gray;
+}
+
+.card-clear{
+  color:red;
+  border-style: none;
+  background-color:gray;
+}
+
+.scrolling-wrapper-flexbox {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+ 
+
+
+.home-text {
+  text-align: center;
+  font-family: Nanti;
+  letter-spacing: 0.2rem;
+  color:white;
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.home-btn {
+  text-align: center;
+  font-family: Nanti;
+  letter-spacing: 0.2rem;
+  color:white;
+  position:absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.shop-btn{
+  border-radius: 0;
+  background-color:white;
+
+
+}
+
+.home-btn-txt{
+  background-color:white;
+  font-family: Nanti;
+  padding:6%;
+  font-size: 1.2rem;
+  text-decoration: underline;
+ 
+}
+
+
+.nav-img{
+  height:3vh;
+}
+
+
+
+.container{
+  padding-left:0px;
+  margin:0px;
+  left:0;
+}
+
+.banner-container{
+    top: 0; 
+    left: 0; 
+    margin:0;
+    padding:0;
+    /* Preserve aspet ratio */
+    min-width: 100%;
+    min-height: 100%;
+    position:relative;
+}
+
+.text-block {
+  
+    color:white;
+   position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+    min-width: 70vw;
+    min-height: 20vh;
+}
+
+.indexbtn{
+  background-color:white;
+  padding:2%;
+  margin-top:-50%;
+}
+
+.btn-shop{
+  color:black;
+  font-family: Nanti;
+}
+
+
+
+

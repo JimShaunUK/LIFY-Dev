@@ -2,9 +2,15 @@ import asyncHandler from 'express-async-handler'
 import Product from '../models/ProductModel.js'
 import Town from '../models/TownModel.js'
 
+const sendLocation= asyncHandler(async (req, res) =>{
+    const {lat, long} = req.body
+    req.body.location = [lat, long]
+    console.log(req.body.location)
+    getProducts()
+})
 
 const getProducts = asyncHandler(async (req, res) =>{
-
+    
     const keyword = req.query.keyword ? {
         name:{
             $regex: req.query.keyword,
@@ -14,16 +20,20 @@ const getProducts = asyncHandler(async (req, res) =>{
     }:{
 
     }
+    const {lat, long} = req.body
+    req.body.location = [lat, long]
+    console.log(req.body.location)
     //get lat/long from user request
     const userlocation = req.body.location
-
+    
     if (!userlocation){
         const presetLocation = await Town.find({})
         var data = {
             message: "Location unavailable, please select an established town",
             towns: presetLocation
         }
-        res.json(data)
+        return res.json(data)
+        
     }
 
     //get store locations
@@ -48,9 +58,10 @@ const getProducts = asyncHandler(async (req, res) =>{
         const presetLocation = await Town.find({})
         var data = {
             message: "No nearby locations, please select an established town",
-            towns: presetLocation
+            products: presetLocation
         }
-        res.json(data)
+        return res.json(data)
+        
     }
     
     //find selected town with closest lat and long from DB
@@ -62,9 +73,21 @@ const getProducts = asyncHandler(async (req, res) =>{
     //search feature not yet implemented
     //const products = await Product.find({...keyword})
 
-    //return town
-    res.json(townProducts);
+    //shuffle items
+    const items = shuffleArray(townProducts)
+
+    return res.json(items);
 })
+
+function shuffleArray(items) {
+    for (var i = items.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = items[i];
+        items[i] = items[j];
+        items[j] = temp;
+    }
+    return items;
+}
 
 //get single product for product page
 const getProductById = asyncHandler(async (req, res) =>{
@@ -90,6 +113,7 @@ const getProductById = asyncHandler(async (req, res) =>{
 export {
     getProducts,
     getProductById,
+    sendLocation
 }
 
 //
