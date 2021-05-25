@@ -2,12 +2,7 @@ import asyncHandler from 'express-async-handler'
 import Product from '../models/ProductModel.js'
 import Town from '../models/TownModel.js'
 
-const sendLocation= asyncHandler(async (req, res) =>{
-    const {lat, long} = req.body
-    req.body.location = [lat, long]
-    console.log(req.body.location)
-    getProducts()
-})
+
 
 const getProducts = asyncHandler(async (req, res) =>{
     
@@ -22,7 +17,7 @@ const getProducts = asyncHandler(async (req, res) =>{
     }
     const {lat, long} = req.body
     req.body.location = [lat, long]
-    console.log(req.body.location)
+    
     //get lat/long from user request
     const userlocation = req.body.location
     
@@ -113,7 +108,7 @@ const getProductById = asyncHandler(async (req, res) =>{
 export {
     getProducts,
     getProductById,
-    sendLocation
+   
 }
 
 //

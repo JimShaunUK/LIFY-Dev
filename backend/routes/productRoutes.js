@@ -2,7 +2,7 @@ import express from 'express'
 const router = express.Router()
 import { getProducts, 
     getProductById,
-    sendLocation 
+   
  } from '../controllers/productController.js'
 import {protect, adminCheck} from '../middleware/authorizeMiddleware.js'
 

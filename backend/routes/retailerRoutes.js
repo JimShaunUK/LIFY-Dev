@@ -9,7 +9,7 @@ import { getRetailers,
 import {protect, adminCheck, retailerCheck} from '../middleware/authorizeMiddleware.js'
 
 //get all retailers from backend by location
-router.route('/').get(getRetailers)
+router.route('/').post(getRetailers)
 
 
 //get one retailer

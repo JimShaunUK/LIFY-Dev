@@ -2,11 +2,14 @@ import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import {productListReducer, productDetailsReducer} from './Reducers/productReducers'
+import { retailerDetailsReducer, retailerListReducer } from './Reducers/retailerReducers'
 
 const reducer = combineReducers({
 
     productList:productListReducer,
     productDetails:productDetailsReducer,
+    retailerList:retailerListReducer,
+    retailerDetails:retailerDetailsReducer
 })
 
 const lifyItemsFromStorage = localStorage.getItem('lifyItems')?

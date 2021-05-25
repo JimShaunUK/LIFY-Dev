@@ -15,16 +15,21 @@ const getRetailers = asyncHandler(async (req, res) =>{
     }:{
 
     }
+    const {lat, long} = req.body
+    req.body.location = [lat, long]
+    
     //get lat/long from user request
     const userlocation = req.body.location
-   
+    
     if (!userlocation){
+        
         const presetLocation = await Town.find({})
         var data = {
             message: "Location unavailable, please select an established town",
             towns: presetLocation
         }
-        res.json(data)
+        return res.json(data)
+        
     }
 
     //get store locations
@@ -45,26 +50,28 @@ const getRetailers = asyncHandler(async (req, res) =>{
     }
 
     if (!closest){
-        
         const presetLocation = await Town.find({})
         var data = {
             message: "No nearby locations, please select an established town",
-            towns: presetLocation
+            products: presetLocation
         }
-        res.json(data)
+        return res.json(data)
+        
     }
     
     //find selected town with closest lat and long from DB
     const nearest = await Town.findOne({rawLocation:closest})
 
     //find all products from that town
-    const stores = await Store.find({town:nearest.name})
+    const retailers = await Store.find({town:nearest.name})
     
     //search feature not yet implemented
     //const products = await Product.find({...keyword})
 
-    //return town
-    res.json(stores);
+    //shuffle items
+    
+
+    return res.json(retailers);
 })
 
 //get single product for product page
