@@ -1,10 +1,10 @@
 import asyncHandler from 'express-async-handler'
 import Product from '../models/ProductModel.js'
 import Town from '../models/TownModel.js'
+import Store from'../models/StoreModel.js'
 
 
-
-const getProducts = asyncHandler(async (req, res) =>{
+/*const getProducts = asyncHandler(async (req, res) =>{
     
     const keyword = req.query.keyword ? {
         name:{
@@ -73,6 +73,31 @@ const getProducts = asyncHandler(async (req, res) =>{
 
     return res.json(items);
 })
+*/
+const getProductsByLocation = asyncHandler(async (req, res) =>{
+     
+    if (req.params.id.length ===24){
+        const townObj = await Town.findById(req.params.id)
+
+        const products = await Product.find({town:townObj.name})
+
+        if (products){
+            const result = shuffleArray(products)
+            
+            res.json(result);
+        }
+        else{
+            res.status(404)
+            throw new Error('products not found!')
+        }
+    }else{
+            res.status(404)
+            throw new Error('town not found!')
+    }
+})
+
+
+
 
 function shuffleArray(items) {
     for (var i = items.length - 1; i > 0; i--) {
@@ -88,12 +113,17 @@ function shuffleArray(items) {
 const getProductById = asyncHandler(async (req, res) =>{
      
     if (req.params.id.length ===24){
-    const product = await Product.findById(req.params.id)
+        const productDetails = await Product.findById(req.params.id)
 
-    
 
-        if (product){
-            res.json(product);
+        if (productDetails){
+            const store = await Store.findById(productDetails.store)
+            const location = await Town.find({name:productDetails.town})
+            //return a new object of a store and its component products
+            productDetails.store= store
+            productDetails.townData = location[0]
+
+            res.json(productDetails)
         }
         else{
             res.status(404)
@@ -105,9 +135,41 @@ const getProductById = asyncHandler(async (req, res) =>{
     }
 })
 
+
+//get single product for product page
+const getProductsByRetailer= asyncHandler(async (req, res) =>{
+     
+    if (req.params.id.length ===24){
+        const products = await Product.find({store:req.params.id})
+
+        if (products){
+        const store = await Store.findById(products[0].store)
+
+        
+        const location = await Town.find({name:products[0].town})
+            //return a new object of a store and its component products
+        var retailerData = {
+            products,
+            store,
+            location:location[0]
+        }
+        res.json(retailerData)
+        }
+    
+    }else{
+        res.status(404)
+        throw new Error('retailer found!')
+    }
+      
+
+})
+
+
+
 export {
-    getProducts,
+    getProductsByLocation,
     getProductById,
+    getProductsByRetailer
    
 }
 

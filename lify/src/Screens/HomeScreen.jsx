@@ -17,7 +17,7 @@ const HomeScreen = (location, history) => {
                     <h1>a digital shopping cooperative</h1>
                 </div>
                 <div className="home-btn">
-                    <Link className='btn' to='/store'><p className="home-btn-txt">shop your town</p></Link>
+                    <Link className='btn' to='/towns'><p className="home-btn-txt">shop your town</p></Link>
                 </div>
             </div>
 
@@ -33,7 +33,7 @@ const HomeScreen = (location, history) => {
                             <Card.Body>
                                 <Card.Title><h4 className="white text-center">antiques and restoration</h4></Card.Title>
                                 <Card.Text>
-                                    <Link to='/store'><p className="white-text underline">shop your town</p></Link>
+                                    <Link to='/towns'><p className="white-text underline">shop your town</p></Link>
 
                                 </Card.Text>
 

@@ -3,9 +3,17 @@ import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 
 const Retailer = ({ retailer }) => {
+
+    const tableStyle = {
+        border: "none",
+        boxShadow: "none",
+        borderRadius: "0",
+        rounded: false
+    };
+
     return (
-        <Card key={retailer._id} className="my-3 p-3 rounded retailer-slide">
-            <Link to={`/retailer/${retailer._id}`}>
+        <Card style={tableStyle} key={retailer._id} className="rounded-0 m-0 p-0">
+            <Link to={`/town/retailer/products/${retailer._id}`}>
                 <Card.Img src={retailer.image} />
             </Link>
             <Card.Body>
@@ -15,13 +23,14 @@ const Retailer = ({ retailer }) => {
                 </Card.Title>
 
                 <Card.Text>
-                    <p class="shop-text">£{retailer.address}</p>
+                    <p class="shop-text">{retailer.address}</p>
                 </Card.Text>
-                <Link to={`/retailer/${retailer._id}`}>
-                    <Card.Text>
-                        <p class="shop-link">{retailer.category}</p>
-                    </Card.Text>
-                </Link>
+
+
+                <Card.Text>
+                    <p class="shop-text">Category: {retailer.category}</p>
+                </Card.Text>
+
             </Card.Body>
         </Card >
     )

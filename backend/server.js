@@ -7,7 +7,7 @@ import {notFound, errorHandler} from './middleware/errorMiddleware.js'
 import productRoutes from './routes/productRoutes.js'
 import userRoutes from './routes/userRoutes.js'
 import retailerRoutes from './routes/retailerRoutes.js'
-
+import townRoutes from './routes/townRoutes.js'
 const app = express()
 
 
@@ -19,6 +19,7 @@ dbconnect()
 app.use('/api/products', productRoutes)
 app.use('/api/users', userRoutes)
 app.use('/api/retailer', retailerRoutes)
+app.use('/api/towns', townRoutes)
 
 app.get('/', (req, res)=>{
     res.send(`API is online...[[${process.env.NODE_ENV}]]`)

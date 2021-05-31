@@ -3,8 +3,11 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
 import HomeScreen from './Screens/HomeScreen'
+import TownScreen from './Screens/TownScreen'
 import StoreScreen from './Screens/StoreScreen'
 import ProductScreen from './Screens/ProductScreen'
+import RetailerScreen from './Screens/RetailerScreen'
+import RetailerProductScreen from './Screens/RetailerProductScreen'
 
 function App() {
   return (
@@ -13,7 +16,11 @@ function App() {
       <div>
         
         <Route path='/' component={HomeScreen} exact />
-        <Route path='/store' component={StoreScreen} exact />
+        <Route path='/towns' component={TownScreen} exact />
+        <Route path='/town/products/:id' component={StoreScreen} exact />
+        <Route path='/town/retailers/:id' component={RetailerScreen} exact />
+        <Route path='/town/retailer/products/:id' component={RetailerProductScreen} exact />
+
         <Route path='/product/:id' component={ProductScreen} />
       </div>
       

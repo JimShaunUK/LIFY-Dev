@@ -1,5 +1,5 @@
 
-export const retailerListReducer = (state = {retailers: []}, action)=>{
+export const retailerListReducer = (state = {retailers:[]}, action)=>{
     switch (action.type){
         case 'RETAILER_LIST_REQUEST':
             return {loading:true, retailers:[]}
@@ -7,7 +7,7 @@ export const retailerListReducer = (state = {retailers: []}, action)=>{
             return {loading:false, retailers: action.payload}
         case 'RETAILER_LIST_FAIL':
             return {loading:false, error: action.payload}
-        default:
+        default: 
             return state
     }
 }

@@ -1,6 +1,7 @@
 import express from 'express'
 const router = express.Router()
-import { getRetailers, 
+import { 
+    getRetailersByLocation,
     getRetailerById,
     registerRetailer,
     updateRetailer,
@@ -9,7 +10,7 @@ import { getRetailers,
 import {protect, adminCheck, retailerCheck} from '../middleware/authorizeMiddleware.js'
 
 //get all retailers from backend by location
-router.route('/').post(getRetailers)
+router.route('/town/:id').get(getRetailersByLocation)
 
 
 //get one retailer

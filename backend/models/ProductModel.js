@@ -29,6 +29,10 @@ const productSchema = mongoose.Schema({
         required:true,
         ref:'Store'
     },
+    townData:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Town'
+    },
     description:{
         type:String,
         required: true

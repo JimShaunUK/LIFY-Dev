@@ -1,13 +1,13 @@
 
 import axios from 'axios'
 
-export const listRetailers = (keyword = '', lat, long) => async (dispatch)=>{
+export const listRetailers = (id) => async (dispatch)=>{
     try {
         dispatch({type: 'RETAILER_LIST_REQUEST'})
 
 
         
-        const {data} = await axios.post(`/api/retailer?keyword=${keyword}`, {lat, long})
+        const {data} = await axios.get(`/api/retailer/town/${id}`)
         dispatch({
             type: 'RETAILER_LIST_SUCCESS',
             payload: data
@@ -22,20 +22,20 @@ export const listRetailers = (keyword = '', lat, long) => async (dispatch)=>{
 }
 
 
-export const listProductDetails = (id) => async (dispatch)=>{
+export const listRetailerDetails = (id) => async (dispatch)=>{
     try {
-        dispatch({type: 'PRODUCT_DETAILS_REQUEST'})
+        dispatch({type: 'RETAILER_DETAILS_REQUEST'})
 
 
-        const {data} = await axios.get(`/api/products/${id}`)
+        const {data} = await axios.get(`/api/retailer/${id}`)
         dispatch({
-            type: 'PRODUCT_DETAILS_SUCCESS',
+            type: 'RETAILER_DETAILS_SUCCESS',
             payload: data
         })
     }
     catch(error){
         dispatch({
-            type: 'PRODUCT_DETAILS_FAIL',
+            type: 'RETAILER_DETAILS_FAIL',
             payload:error.response && error.response.data.message ? error.response.data.message: error.message
         })
     }

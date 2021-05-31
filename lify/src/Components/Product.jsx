@@ -3,8 +3,16 @@ import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
 
 const Product = ({ product }) => {
+
+    const tableStyle = {
+        border: "none",
+        boxShadow: "none",
+        borderRadius: "0",
+        rounded: false
+    };
+
     return (
-        <Card key={product._id} className="my-3 p-3 rounded product-slide">
+        <Card style={tableStyle} key={product._id} className="rounded-0 m-0 p-0">
             <Link to={`/product/${product._id}`}>
                 <Card.Img src={product.image} />
             </Link>

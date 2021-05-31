@@ -4,6 +4,7 @@ import Town from '../models/TownModel.js'
 import Product from '../models/ProductModel.js'
 
 
+/*
 const getRetailers = asyncHandler(async (req, res) =>{
 
     const keyword = req.query.keyword ? {
@@ -73,22 +74,49 @@ const getRetailers = asyncHandler(async (req, res) =>{
 
     return res.json(retailers);
 })
+*/
+
+
+const getRetailersByLocation = asyncHandler(async (req, res) =>{
+     
+    if (req.params.id.length ===24){
+        const townObj = await Town.findById(req.params.id)
+
+        const retailers = await Store.find({town:townObj.name})
+
+        if (retailers){
+            
+            
+            res.json(retailers);
+        }
+        else{
+            res.status(404)
+            throw new Error('retailers not found!')
+        }
+    }else{
+            res.status(404)
+            throw new Error('town not found!')
+    }
+})
+
+
+
 
 //get single product for product page
 const getRetailerById = asyncHandler(async (req, res) =>{
      
-    if (req.params.id.length ===24){
-    const store = await Store.findById(req.params.id)
+    
+        const store = await Store.findById(req.params.id)
 
     
 
         if (store){
-            const products = await Product.find({store:store._id})
+            const location = await Town.find({name:store.town})
             
             //return a new object of a store and its component products
             var result = {
-                store: store,
-                products:products
+                town: location,
+                shop: store
             }
             res.json(result)
         }
@@ -96,10 +124,7 @@ const getRetailerById = asyncHandler(async (req, res) =>{
             res.status(404)
             throw new Error('Store not found!')
         }
-    }else{
-            res.status(404)
-            throw new Error('Store not found!')
-    }
+   
 })
 
 
@@ -197,7 +222,7 @@ const updateRetailer = asyncHandler(async (req, res) =>{
 })
 
 export {
-    getRetailers,
+    getRetailersByLocation,
     getRetailerById,
     registerRetailer,
     updateRetailer
