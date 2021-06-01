@@ -40,8 +40,8 @@ const ProfileScreen = ({ location, history }) => {
     useEffect(() => {
         if (error) {
             console.log(error)
-            dispatch(logout())
-            history.push('/login')
+            //dispatch(logout())
+            //history.push('/login')
         }
 
         if (!user || !user.name || success) {

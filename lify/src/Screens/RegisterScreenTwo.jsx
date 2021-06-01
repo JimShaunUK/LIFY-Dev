@@ -22,13 +22,14 @@ const RegisterScreen = ({ location, history }) => {
     const [town, setTown] = useState(shippingAddress.town)
     const [county, setCounty] = useState(shippingAddress.county)
     const [postcode, setPostcode] = useState(shippingAddress.postcode)
+    const [address, setAddress] = useState('')
 
 
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
 
-    const [address, setAddress] = useState('')
+
 
 
 
@@ -41,25 +42,26 @@ const RegisterScreen = ({ location, history }) => {
     const userRegister = useSelector(state => state.userRegister)
     const { loading, error, userInfo } = userRegister
 
-    const redirect = location.search ? location.search.split('=')[1] : '/'
+
 
 
 
     useEffect(() => {
+
         if (userInfo) {
             history.push('/profile')
         }
-    }, [history, userInfo, redirect])
+    }, [history, userInfo, shippingAddress])
 
     const submitHandler = (e) => {
         e.preventDefault()
         if (password !== confirmPassword) {
             setMessage('Passwords do not match!')
         } else {
-            setAddress(streetAddress + ', ' + town + ', ' + county + ', ' + postcode)
-            alert(address)
-            alert(phone)
+
+            setAddress(`${streetAddress}, ${town}, ${county}, ${postcode}`)
             dispatch(register(name, email, password, address, phone))
+            //history.push('/profile')
         }
     }
 
@@ -79,7 +81,7 @@ const RegisterScreen = ({ location, history }) => {
         alignItems: 'center',
         justifyContent: 'center',
         textDecoration: 'none',
-        display: 'block'
+
     }
 
     return (
@@ -108,7 +110,7 @@ const RegisterScreen = ({ location, history }) => {
                     <FormControl
                         type='address'
                         placeholder='Enter address...'
-                        value={address}
+                        value={`${streetAddress}, ${town}, ${county}, ${postcode}`}
                         onChange={(e) => setAddress(e.target.value)}
                     ></FormControl>
                 </Form.Group>
@@ -160,7 +162,7 @@ const RegisterScreen = ({ location, history }) => {
             <Row>
 
                 <Col>
-                    <div onClick={clearuserData} className="text-center shop-link-lg py-4">or login here!</div>
+                    <div onClick={clearuserData} className="text-center shop-link-lg my-5 py-1">or login here!</div>
 
 
                 </Col>

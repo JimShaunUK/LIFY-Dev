@@ -58,6 +58,7 @@ const RegisterScreen = ({ location, history }) => {
             setMessage('You must provide a valid postcode!')
         }
         else {
+
             dispatch(saveShippingAddress({ name, email, streetAddress, town, county, postcode }))
             history.push('/register/complete')
         }
@@ -169,7 +170,7 @@ const RegisterScreen = ({ location, history }) => {
             <Row>
 
                 <Col>
-                    <div onClick={clearuserData} className="text-center shop-link-lg py-4">or login here!</div>
+                    <div onClick={clearuserData} className="text-center shop-link-lg my-5 py-1">or login here!</div>
 
 
                 </Col>

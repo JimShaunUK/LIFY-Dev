@@ -12,6 +12,8 @@ import LoginScreen from './Screens/LoginScreen'
 import RegisterScreen from './Screens/RegisterScreen'
 import RegisterScreenTwo from './Screens/RegisterScreenTwo'
 import ProfileScreen from './Screens/ProfileScreen'
+import CartScreen from './Screens/CartScreen'
+import ReviewOrderScreen from './Screens/ReviewOrderScreen'
 
 function App() {
   return (
@@ -30,7 +32,10 @@ function App() {
         <Route path='/register/complete' component={RegisterScreenTwo} exact />
         <Route path='/profile' component={ProfileScreen} />
 
+         <Route path='/cart/:id?' component={CartScreen} />
+         <Route path='/review/order' component={ReviewOrderScreen} />
         <Route path='/product/:id' component={ProductScreen} />
+
       </div>
       
       <Footer />

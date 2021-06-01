@@ -20,9 +20,9 @@ const Header = ({ history }) => {
 
 
     const logoutHandler = () => {
-
-        dispatch(logout())
         localStorage.removeItem('userInfo')
+        dispatch(logout())
+
     }
 
     useEffect(() => {
@@ -32,6 +32,9 @@ const Header = ({ history }) => {
     }, [history])
 
 
+    const navFix = {
+        zIndex: '1000'
+    }
 
 
 
@@ -45,7 +48,7 @@ const Header = ({ history }) => {
                     <Navbar.Toggle id="test" aria-controls="basic-navbar-nav" />
                     <LinkContainer to="/search">
                         <Nav.Link> <span>
-                            <img className="nav-img" src={`images/search.png`} alt="basket"></img>
+                            <img className="nav-img" src={`images/search.png`} alt="search"></img>
                         </span></Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/">
@@ -53,7 +56,7 @@ const Header = ({ history }) => {
                     </LinkContainer>
                     <LinkContainer to="/profile">
                         <Nav.Link> <span>
-                            <img className="nav-img" src={`images/profile.png`} alt="basket"></img>
+                            <img className="nav-img" src={`images/profile.png`} alt="account"></img>
                         </span></Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/cart">
@@ -62,7 +65,7 @@ const Header = ({ history }) => {
                         </span></Nav.Link>
                     </LinkContainer>
                 </Container>
-                <Navbar.Collapse id="collapseNav" className="nav-bg">
+                <Navbar.Collapse style={navFix} id="collapseNav" className="nav-bg">
 
                     <>
                         <Link to="/">
