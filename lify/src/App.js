@@ -8,6 +8,10 @@ import StoreScreen from './Screens/StoreScreen'
 import ProductScreen from './Screens/ProductScreen'
 import RetailerScreen from './Screens/RetailerScreen'
 import RetailerProductScreen from './Screens/RetailerProductScreen'
+import LoginScreen from './Screens/LoginScreen'
+import RegisterScreen from './Screens/RegisterScreen'
+import RegisterScreenTwo from './Screens/RegisterScreenTwo'
+import ProfileScreen from './Screens/ProfileScreen'
 
 function App() {
   return (
@@ -20,6 +24,11 @@ function App() {
         <Route path='/town/products/:id' component={StoreScreen} exact />
         <Route path='/town/retailers/:id' component={RetailerScreen} exact />
         <Route path='/town/retailer/products/:id' component={RetailerProductScreen} exact />
+
+        <Route path='/login' component={LoginScreen} />
+        <Route path='/register' component={RegisterScreen} />
+        <Route path='/register/complete' component={RegisterScreenTwo} />
+        <Route path='/profile' component={ProfileScreen} />
 
         <Route path='/product/:id' component={ProductScreen} />
       </div>

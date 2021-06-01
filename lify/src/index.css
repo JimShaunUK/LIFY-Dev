@@ -15,8 +15,9 @@ body,html{
 }
 
 a{
-  text-decoration:line-through;
+  text-decoration: none!important;
 }
+
 
 .shop-header{
   font-family:arial;
@@ -187,6 +188,37 @@ h4, h5, h6{
 
 .nav-img{
   height:3vh;
+}
+
+.nav-block{
+  background-color:#565656;
+  display:block;
+  text-align:center
+}
+
+.nav-block-retailer{
+  background-color:#3A6FBD;
+  display:block;
+  text-align:center
+}
+
+.nav-block-admin{
+  background-color:#5320C0;
+  display:block;
+  text-align:center
+}
+
+.nav-bg{
+  background-color: #C4C4C4;
+}
+
+.nav-text{
+  font-family:arial;
+  letter-spacing: 0.3rem;
+  font-size:0.9rem;
+  color:white;
+  font-weight:bold;
+  text-decoration: none!important;
 }
 
 

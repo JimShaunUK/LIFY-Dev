@@ -67,7 +67,7 @@ const RetailerScreen = ({ location, history, match }) => {
                     <Row>
 
                         {retailers.map(retailer => (
-                            <Col className="p-0" xs={12} md={6} lg={4}>
+                            <Col className="p-0" xs={12} md={6} lg={6}>
                                 <Retailer retailer={retailer} />
                             </Col>
                         ))}

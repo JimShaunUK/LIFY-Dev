@@ -44,10 +44,6 @@ const StoreScreen = ({ location, history, match }) => {
     return (
         <>
 
-
-
-
-
             {products ? (
                 <div>
                     {town ? (
