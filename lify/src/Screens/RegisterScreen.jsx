@@ -1,66 +1,95 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, Row, Col, FormControl } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { register, logout } from '../Actions/userActions'
+import { logout } from '../Actions/userActions'
+import { saveShippingAddress } from '../Actions/cartActions'
 import FormContainer from '../Components/FormContainer'
-
-
+import Message from '../Components/Message'
 
 
 const RegisterScreen = ({ location, history }) => {
 
+
+
+    const cart = useSelector(state => state.cart)
+    const { shippingAddress } = cart
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
 
-    const [address, setAddress] = useState('')
 
-    const [street, setStreet] = useState('')
+    const [streetAddress, setStreetAddress] = useState('')
     const [town, setTown] = useState('')
+    const [county, setCounty] = useState('')
     const [postcode, setPostcode] = useState('')
-
-    const [phone, setPhone] = useState('')
 
     const [message, setMessage] = useState(null)
 
     const dispatch = useDispatch()
 
     const userRegister = useSelector(state => state.userRegister)
-    const { loading, error, lifyUser } = userRegister
-
-    const redirect = location.search ? location.search.split('=')[1] : '/'
-
+    const { error, userInfo } = userRegister
 
 
     useEffect(() => {
-        if (lifyUser) {
-            history.push(redirect)
+        if (userInfo) {
+            history.push('/account')
         }
-    }, [history, lifyUser, redirect])
+    }, [history, userInfo])
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (password !== confirmPassword) {
-            setMessage('Passwords do not match!')
-        } else {
-            setAddress(street + ', ' + town + ', ' + postcode)
-            dispatch(register(name, email, password, address, phone))
+
+        if (name === '') {
+            setMessage('An account owner needs a name!')
         }
+        else if (email === '') {
+            setMessage('You must provide a unique email!')
+        }
+        else if (streetAddress === '') {
+            setMessage('You must provide a street address!')
+        }
+        else if (town === '') {
+            setMessage('You must provide a town')
+        }
+        else if (county === '') {
+            setMessage('You must provide a county!')
+        }
+        else if (postcode === '') {
+            setMessage('You must provide a valid postcode!')
+        }
+        else {
+            dispatch(saveShippingAddress({ name, email, streetAddress, town, county, postcode }))
+            history.push('/register/complete')
+        }
+
+
     }
 
     const clearuserData = () => {
-        localStorage.removeItem('lifyUser')
+        localStorage.removeItem('userInfo')
         dispatch(logout())
         history.push('/login')
     }
 
+    const btnStyle = {
+        display: 'block',
+        backgroundColor: 'black',
+        color: 'white',
+        fontFamily: 'arial',
+        letterSpacing: '0.2rem',
+        borderRadius: "0",
+        alignItems: 'center',
+        justifyContent: 'center',
+        textDecoration: 'none',
+        display: 'block'
+    }
+
+
     return (
         <FormContainer>
-            <h1 className='py-3'>Sign Up!</h1>
-            {error && <h3 className="message-alert">{error}</h3>}
-            {message && <h3 className="message-alert">{message}</h3>}
-            {loading && <h3>Registering...</h3>}
+            <h2 className="shop-header-large py-3 text-center">sign up!</h2>
+            <h4 className="shop-header  text-center">create an account to purchase and track orders</h4>
+
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId='name'>
                     <Form.Label>Name</Form.Label>
@@ -81,23 +110,15 @@ const RegisterScreen = ({ location, history }) => {
                     ></FormControl>
                 </Form.Group>
 
-                <Form.Group controlId='phone'>
-                    <Form.Label>Email</Form.Label>
-                    <FormControl
-                        type='phone'
-                        placeholder='Enter phone number...'
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                    ></FormControl>
-                </Form.Group>
 
-                <Form.Group controlId='street'>
+
+                <Form.Group controlId='streetAddress'>
                     <Form.Label>Street Address</Form.Label>
                     <FormControl
-                        type='street'
+                        type='streetAddress'
                         placeholder='Enter street address...'
-                        value={street}
-                        onChange={(e) => setStreet(e.target.value)}
+                        value={streetAddress}
+                        onChange={(e) => setStreetAddress(e.target.value)}
                     ></FormControl>
                 </Form.Group>
 
@@ -111,6 +132,17 @@ const RegisterScreen = ({ location, history }) => {
                     ></FormControl>
                 </Form.Group>
 
+                <Form.Group controlId='county'>
+                    <Form.Label>County</Form.Label>
+                    <FormControl
+                        type='county'
+                        placeholder='Enter county...'
+                        value={county}
+                        onChange={(e) => setCounty(e.target.value)}
+                    ></FormControl>
+                </Form.Group>
+
+
                 <Form.Group controlId='postcode'>
                     <Form.Label>Postcode</Form.Label>
                     <FormControl
@@ -121,44 +153,25 @@ const RegisterScreen = ({ location, history }) => {
                     ></FormControl>
                 </Form.Group>
 
-                <Form.Group controlId='password'>
-                    <Form.Label>Password</Form.Label>
-                    <FormControl
-                        type='password'
-                        placeholder='Enter password...'
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    ></FormControl>
+                <Form.Group className='my-2 text-center'>
+                    {message && <Message variant='danger'>{message}</Message>}
                 </Form.Group>
-                <Form.Group controlId='confirmPassword'>
-                    <Form.Label>Confirm Password</Form.Label>
-                    <FormControl
-                        type='password'
-                        placeholder='Confirm password...'
-                        value={confirmPassword}
-                        onChange={(e) => setConfirmPassword(e.target.value)}
-                    ></FormControl>
-                </Form.Group>
+
                 <Button
                     type='submit'
-                    variant='warning'
-                    className="btn btn-block rounded"
+                    className="w-100"
+                    style={btnStyle}
                 >Register</Button>
 
 
             </Form>
-            <Row className="py-3 ">
-                <Col className="align-items-center">
-                    <h4 className="text-center">Have an account?</h4>
 
-
-                </Col>
-            </Row>
             <Row>
+
                 <Col>
-                    <Button onClick={clearuserData} className="btn btn-block" variant="outline-warning rounded">Sign In</Button>
-                    {//<Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>Sign In!</Link>
-                    }
+                    <div onClick={clearuserData} className="text-center shop-link-lg py-4">or login here!</div>
+
+
                 </Col>
             </Row>
 

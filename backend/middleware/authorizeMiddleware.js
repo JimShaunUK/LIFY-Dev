@@ -9,6 +9,7 @@ const protect = asyncHandler(async(req, res, next) =>{
         console.log('Token Found')
         try{
             token = req.headers.authorization.split(' ')[1]
+            console.log(token)
             const decoded = jwt.verify(token, process.env.JWT_SECRET)
 
             console.log(decoded)

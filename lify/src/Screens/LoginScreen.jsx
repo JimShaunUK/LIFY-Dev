@@ -30,11 +30,26 @@ const LoginScreen = ({ location, history }) => {
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(login(email, password))
+
+    }
+
+    const btnStyle = {
+        display: 'block',
+        backgroundColor: 'black',
+        color: 'white',
+        fontFamily: 'arial',
+        letterSpacing: '0.2rem',
+        borderRadius: "0",
+        alignItems: 'center',
+        justifyContent: 'center',
+        textDecoration: 'none',
+        display: 'block'
     }
 
     return (
         <FormContainer>
-            <h1 className='py-3'>Sign In!</h1>
+            <h2 className="shop-header-large py-3 text-center">sign in!</h2>
+            <h4 className="shop-header  text-center">access your account with your email and password</h4>
             {error && <Message variant={'danger'}>{error}</Message>}
             {loading && <Loader />}
             <Form onSubmit={submitHandler}>
@@ -59,14 +74,17 @@ const LoginScreen = ({ location, history }) => {
                 </Form.Group>
                 <Button
                     type='submit'
-                    variant='primary'>Sign In</Button>
+                    style={btnStyle}
+                    className="w-100 my-3">Sign In
+                    </Button>
 
 
             </Form>
-            <Row className="py-3">
+            <Row className="py-1">
                 <Col>
-                    Don't have an account? <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>Sign Up</Link>
-
+                    <Link to='/register'>
+                        <div className="text-center shop-link-lg py-4">or register here!</div>
+                    </Link>
                 </Col>
 
             </Row>

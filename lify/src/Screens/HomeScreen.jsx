@@ -44,7 +44,7 @@ const HomeScreen = (location, history) => {
                             <Card.Body>
                                 <Card.Title><h4 className="white text-center">beer and wine</h4></Card.Title>
                                 <Card.Text>
-                                    <Link to='/store'><p className="white-text underline">shop your town</p></Link>
+                                    <Link to='/towns'><p className="white-text underline">shop your town</p></Link>
 
                                 </Card.Text>
 
@@ -56,7 +56,7 @@ const HomeScreen = (location, history) => {
                             <Card.Body>
                                 <Card.Title><h4 className="white text-center">craft and hobbies</h4></Card.Title>
                                 <Card.Text>
-                                    <Link to='/store'><p className="white-text underline">shop your town</p></Link>
+                                    <Link to='/towns'><p className="white-text underline">shop your town</p></Link>
 
                                 </Card.Text>
 
@@ -68,7 +68,7 @@ const HomeScreen = (location, history) => {
                             <Card.Body>
                                 <Card.Title><h4 className="white text-center">coffee and tea</h4></Card.Title>
                                 <Card.Text>
-                                    <Link to='/store'><p className="white-text underline">shop your town</p></Link>
+                                    <Link to='/towns'><p className="white-text underline">shop your town</p></Link>
 
                                 </Card.Text>
 
@@ -80,7 +80,7 @@ const HomeScreen = (location, history) => {
                             <Card.Body>
                                 <Card.Title><h4 className="white text-center">vintage and tailored</h4></Card.Title>
                                 <Card.Text>
-                                    <Link to='/store'><p className="white-text underline">shop your town</p></Link>
+                                    <Link to='/towns'><p className="white-text underline">shop your town</p></Link>
 
                                 </Card.Text>
 

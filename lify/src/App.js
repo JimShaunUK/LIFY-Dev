@@ -26,8 +26,8 @@ function App() {
         <Route path='/town/retailer/products/:id' component={RetailerProductScreen} exact />
 
         <Route path='/login' component={LoginScreen} />
-        <Route path='/register' component={RegisterScreen} />
-        <Route path='/register/complete' component={RegisterScreenTwo} />
+        <Route path='/register' component={RegisterScreen} exact />
+        <Route path='/register/complete' component={RegisterScreenTwo} exact />
         <Route path='/profile' component={ProfileScreen} />
 
         <Route path='/product/:id' component={ProductScreen} />

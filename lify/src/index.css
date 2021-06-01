@@ -27,6 +27,20 @@ a{
   font-weight:bold;
 }
 
+td, th{
+  font-family:arial;
+  letter-spacing: 0.1rem;
+  color:black;
+  font-size:0.8rem;
+}
+
+form{
+  font-family:arial;
+  letter-spacing: 0.1rem;
+  color:black;
+  font-size:0.8rem;
+}
+
 .shop-header-large{
   font-family:arial;
   letter-spacing: 0.2rem;
@@ -35,10 +49,24 @@ a{
   font-weight:bold;
 }
 
+label{
+  padding-top:2%
+}
+
 .shop-link{
   font-family:arial;
   letter-spacing: 0.2rem;
   font-size:0.7rem;
+  text-decoration: underline;
+  color:black;
+  padding:0;
+  margin-top:-3%;
+}
+
+.shop-link-lg{
+  font-family:arial;
+  letter-spacing: 0.2rem;
+  font-size:0.9rem;
   text-decoration: underline;
   color:black;
   padding:0;
