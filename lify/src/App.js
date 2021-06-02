@@ -14,6 +14,7 @@ import RegisterScreenTwo from './Screens/RegisterScreenTwo'
 import ProfileScreen from './Screens/ProfileScreen'
 import CartScreen from './Screens/CartScreen'
 import ReviewOrderScreen from './Screens/ReviewOrderScreen'
+import PaymentScreen from './Screens/PaymentScreen'
 
 function App() {
   return (
@@ -33,7 +34,8 @@ function App() {
         <Route path='/profile' component={ProfileScreen} />
 
          <Route path='/cart/:id?' component={CartScreen} />
-         <Route path='/review/order' component={ReviewOrderScreen} />
+         <Route path='/review/order' component={ReviewOrderScreen} exact/>
+         <Route path='/review/order/pay' component={PaymentScreen} exact />
         <Route path='/product/:id' component={ProductScreen} />
 
       </div>

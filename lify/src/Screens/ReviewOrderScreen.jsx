@@ -2,10 +2,12 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroupItem, Image, Form, Button, ListGroup, Card, Container, FormControl } from 'react-bootstrap'
-import { addToCart, removeFromCart } from '../Actions/cartActions'
+import { saveShippingAddress, addToCart, removeFromCart, createOrder } from '../Actions/cartActions'
 import CheckoutProgressBar from '../Components/CheckoutProgressBar'
 import FormContainer from '../Components/FormContainer'
 import Message from '../Components/Message'
+
+import DatePicker from 'react-date-picker'
 
 
 const ReviewOrderScreen = ({ match, location, history }) => {
@@ -23,21 +25,27 @@ const ReviewOrderScreen = ({ match, location, history }) => {
 
 
     const { shippingAddress } = cart
+    const { cartItems } = cart
     const [name, setName] = useState(userInfo.name)
-
+    const [email, setEmail] = useState(userInfo.email)
     const [address, setAddress] = useState(userInfo.address)
 
-    const [streetAddress, setStreetAddress] = useState('')
-    const [town, setTown] = useState('')
-    const [county, setCounty] = useState('')
-    const [postcode, setPostcode] = useState('')
+    const [streetAddress, setStreetAddress] = useState()
+    const [town, setTown] = useState()
+    const [county, setCounty] = useState()
+    const [postcode, setPostcode] = useState()
     const [delivery, setDelivery] = useState(false)
+    const [deliveryFee, setDeliveryFee] = useState(0)
+    const [startDate, setStartDate] = useState(new Date())
 
     const [message, setMessage] = useState(null)
 
 
 
     useEffect(() => {
+        //setMessage('Basket Empty!')
+        setStartDate(new Date(Date.now() + (3600 * 1000 * 24)))
+
         if (productId) {
             dispatch(addToCart(productId, qty))
         }
@@ -50,7 +58,7 @@ const ReviewOrderScreen = ({ match, location, history }) => {
             setPostcode(addressData[3])
         }
 
-        alert(delivery)
+        //alert(delivery)
 
     }, [dispatch, userInfo, productId, qty, delivery])
 
@@ -60,6 +68,17 @@ const ReviewOrderScreen = ({ match, location, history }) => {
         dispatch(removeFromCart(id))
     }
 
+    const deliveryOption = () => {
+        if (delivery) {
+            setDelivery(false)
+            setDeliveryFee(0)
+        }
+        else {
+
+            setDelivery(true)
+            setDeliveryFee(4)
+        }
+    }
     const checkOutHandler = () => {
 
         if (userInfo.length === 0 || !userInfo) {
@@ -71,8 +90,17 @@ const ReviewOrderScreen = ({ match, location, history }) => {
         }
     }
 
+
+
+
     const submitHandler = () => {
-        alert('hello')
+        let billingAddress = `${streetAddress}, ${town}, ${county}`
+        const totalPrice = Number(cart.cartItems.reduce((acc, item) => acc + item.qty * item.price, 0) + deliveryFee + 3).toFixed(2)
+        let PostCode = `${postcode}`
+        dispatch(saveShippingAddress({ name, email, billingAddress, delivery, deliveryFee, startDate }))
+        dispatch(createOrder({ name, email, billingAddress, PostCode, totalPrice, cartItems }))
+
+        history.push('/review/order/pay')
     }
 
     const goBack = () => {
@@ -113,16 +141,16 @@ const ReviewOrderScreen = ({ match, location, history }) => {
                             {cart.cartItems.map(item => (
                                 <ListGroupItem key={item.product}>
                                     <Row>
-                                        <Col xs={3} md={2}>
+                                        <Col xs={3} md={3}>
                                             <Image src={item.image} alt={item.name} fluid rounded />
                                         </Col>
-                                        <Col xs={3} md={4}>
+                                        <Col xs={3} md={3}>
                                             <h3 className="checkout-link-lg mt-4" ><Link to={`/product/${item.product}`}>{item.name}</Link></h3>
                                         </Col>
-                                        <Col xs={3} md={2}>
+                                        <Col xs={2} md={2}>
                                             <p className="checkout-text-lg mt-4">£{item.price}</p>
                                         </Col>
-                                        <Col xs={3} md={2}>
+                                        <Col xs={2} md={2}>
                                             <Form.Control className="mt-3" as='select' value={item.qty} onChange={(e) => dispatch(addToCart(item.product, Number(e.target.value)))}>
                                                 {
                                                     [...Array(item.stock).keys()].map(x => (
@@ -131,14 +159,14 @@ const ReviewOrderScreen = ({ match, location, history }) => {
                                                 }
                                             </Form.Control>
                                         </Col>
-                                        <Col xs={12} md={12}>
+                                        <Col xs={2} md={2}>
                                             <Button
                                                 type="button"
                                                 style={btnStyle}
-                                                className="btn mt-3 p-1 w-100"
+                                                className="btn mt-4 p-1 w-100"
                                                 onClick={() => removeFromCartHandler(item.product)}>
 
-                                                remove
+                                                X
                                              </Button>
                                         </Col>
                                     </Row>
@@ -235,16 +263,34 @@ const ReviewOrderScreen = ({ match, location, history }) => {
                                 <FormControl
                                     type='delivery'
                                     placeholder='Select delivery method...'
-                                    onChange={(e) => setDelivery(e.target.value)}
+                                    onChange={deliveryOption}
                                     as="select">
-                                    <option value={false}>collection</option>
-                                    <option value={true}>delivery</option>
+                                    <option value="false">collection</option>
+                                    <option value="true">delivery</option>
                                 </FormControl>
                             </Form.Group>
 
-                            {!delivery && (
-                                <p>DATE PICKER</p>
-                            )}
+                            <Form.Group>
+
+                                <DatePicker
+                                    className="w-100 py-3"
+                                    onChange={setStartDate}
+                                    value={startDate}
+                                    minDate={startDate}
+                                    disableCalendar={false}
+                                    showLeadingZeros={true}
+                                />
+
+
+                            </Form.Group>
+                            <Form.Group >
+                                <Col className='my-2 text-right'>
+                                    <h2 className="shop-header py-3 ">Delivery fee: £{deliveryFee}</h2>
+                                    <h4 className="shop-text ">this is calculated at a flat rate</h4>
+                                </Col>
+
+
+                            </Form.Group>
 
                             <Form.Group className='my-2 text-center'>
                                 {message && <Message variant='danger'>{message}</Message>}
@@ -252,7 +298,7 @@ const ReviewOrderScreen = ({ match, location, history }) => {
 
                             <Button
                                 type='submit'
-                                className="w-100"
+                                className="w-100 mt-3"
                                 style={btnStyle}
                             >proceed to payment</Button>
 
@@ -265,30 +311,7 @@ const ReviewOrderScreen = ({ match, location, history }) => {
 
 
 
-            <Row>
-                <Col>
-                    <ListGroup>
 
-                        hhhh
-                </ListGroup>
-                    <ListGroup>
-                        hhhh
-                            <ListGroupItem>
-
-                            <Button
-                                type="button"
-                                className="btn-block btn-warning"
-                                disabled={cart.cartItems.length === 0}
-                                onClick={checkOutHandler}
-                            >Proceed to Checkout!</Button>
-
-
-                        </ListGroupItem>
-                    </ListGroup>
-
-                </Col>
-
-            </Row>
         </>
     )
 }

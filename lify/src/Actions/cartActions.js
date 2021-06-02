@@ -46,3 +46,20 @@ export const savePaymentMethod = (data) => (dispatch) =>{
     localStorage.setItem('paymentMethod', JSON.stringify(data))
 }
 
+export const createOrder = (data) => (dispatch) =>{
+    dispatch({
+        type:'CREATE_ORDER_MANIFEST',
+        payload: data,
+    })
+
+    localStorage.setItem('lifyOrder', JSON.stringify(data))
+}
+
+export const removeOrder = (data) => (dispatch) =>{
+    dispatch({
+        type:'REMOVE_ORDER_MANIFEST',
+        payload: data,
+    })
+
+    localStorage.removeItem('lifyOrder')
+}

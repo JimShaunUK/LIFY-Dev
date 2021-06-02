@@ -1,5 +1,5 @@
 
-export const cartReducer =(state={cartItems:[], shippingAdress:{}}, action)=>{
+export const cartReducer =(state={cartItems:[], shippingAdress:{}, order:{}}, action)=>{
     switch(action.type){
         case 'CART_ADD_ITEM':
             const item = action.payload
@@ -35,6 +35,16 @@ export const cartReducer =(state={cartItems:[], shippingAdress:{}}, action)=>{
             return {
                  ...state,
                  cartItems: [],
+            }
+        case 'CREATE_ORDER_MANIFEST':
+            return{
+                ...state,
+                order: action.payload,
+            }
+        case 'REMOVE_ORDER_MANIFEST':
+            return{
+                ...state,
+                order: {},
             }
         default:
             return state

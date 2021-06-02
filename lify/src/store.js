@@ -44,10 +44,14 @@ const userInfoFromStorage = localStorage.getItem('userInfo')?
 const shippingAddressFromStorage = localStorage.getItem('shippingAddress')?
     JSON.parse(localStorage.getItem('shippingAddress')):[]
 
+const orderFromStorage = localStorage.getItem('lifyOrder')?
+    JSON.parse(localStorage.getItem('lifyOrder')):[]
+
 const initialState = {
     cart:{
         cartItems:cartItemsFromStorage,
-        shippingAddress: shippingAddressFromStorage
+        shippingAddress: shippingAddressFromStorage,
+        order: orderFromStorage
     },
     userLogin:{
         userInfo: userInfoFromStorage

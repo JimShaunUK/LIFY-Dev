@@ -13,7 +13,7 @@ const Town = ({ town }) => {
 
 
     return (
-        <Card style={tableStyle} key={town._id} className="my-0 p-0">
+        <Card style={tableStyle} key={town._id} className="product-slide my-0 p-0">
             <Link to={`/town/products/${town._id}`}>
                 <Card.Img src={town.image} />
             </Link>
