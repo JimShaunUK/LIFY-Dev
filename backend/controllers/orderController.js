@@ -1,39 +1,83 @@
 import asyncHandler from 'express-async-handler'
 import CustomerOrder from '../models/CustomerOrderModel.js'
 import StoreOrder from '../models/StoreOrderModel.js'
-const stripe = 'sk_test_51IUavEFV3SCXvY9fJ1bhZnVp2634qcHKHjq3qWX7yddcUF6iOFzFuQSrsZz2k0m0404PXkthuuQta3KQQM18rsvL006Yff0nVV'
+import Product from '../models/ProductModel.js'
+import Store from '../models/StoreModel.js'
+
 
 const addOrderItems = asyncHandler(async (req, res) =>{
 
-    const {
-        orderItems,
-        shippingAddress,
-        paymentMethod,
-        itemsPrice,
-        shippingPrice,
-        handlingPrice,
-        totalPrice
-        } = req.body
     
-    if (orderItems && orderItems.length===0){
+    const {
+        cartItems,
+        billingAddress,
+        itemsPrice,
+        delivery,
+        deliveryFee,
+        totalPrice,
+        PostCode,
+        } = req.body
+
+        
+    
+    if (cartItems && cartItems.length===0){
         res.status(400)
         throw new Error('No items in order!')
         
     }
     else{
-        const order = new CustomerOrder({
+    //configure order data to schema
+    const orderItems = cartItems
+    const shippingAddress = billingAddress
+    const postcode = PostCode
+    const paymentMethod = "card/stripe"
+    const processingPrice = 3
+    const shippingPrice = deliveryFee
+    //const totalPrice
+    const isPaid = true
+    const isCollection = delivery 
+    const paidAt = new Date()
+    
+    const order = new CustomerOrder({
             orderItems,
             user: req.user._id,
             shippingAddress,
             paymentMethod,
             itemsPrice,
             shippingPrice,
-            handlingPrice,
-            totalPrice
+            processingPrice,
+            totalPrice,
+            postcode,
+            processingPrice,
+            shippingPrice,
+            isPaid,
+            isCollection,
+            paidAt,
         })
 
-        const createdOrder = await order.save()
-        res.status(201).json(createdOrder)
+    const createdOrder = await order.save()
+
+    
+    for(var i=0; i < orderItems.length; i++){
+        var product = await Product.findById(orderItems[i].product)
+        var store = await Store.findById(product.store)
+        var price = orderItems[i].price * orderItems[i].qty
+        var store_order = new StoreOrder({
+            totalPrice: price,
+            isCollection,
+            customer: req.user._id,
+            store: store._id,
+            paymentMethod,
+            orderItems:orderItems[i],
+            isPaid
+        })
+        var createdStoreOrder = await store_order.save()
+        createdOrder.storeOrders.push(createdStoreOrder)
+        var end = await createdOrder.save()
+    }
+    
+    
+    res.status(201).json(createdOrder)
     }
 
 

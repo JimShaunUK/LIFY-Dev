@@ -169,6 +169,22 @@ h4, h5, h6{
   font-size:1.4rem
 }
 
+.white-text-alt{
+  
+  color:white;
+  font-family: arial;
+  letter-spacing: 0.2rem;
+  font-size:0.9rem
+}
+
+.white-text-alt-heading{
+  text-align:center;
+  color:white;
+  font-family: arial;
+  letter-spacing: 0.2rem;
+  font-size:1.5rem
+}
+
 .underline{
   text-decoration: underline;
 }

@@ -15,6 +15,15 @@ import ProfileScreen from './Screens/ProfileScreen'
 import CartScreen from './Screens/CartScreen'
 import ReviewOrderScreen from './Screens/ReviewOrderScreen'
 import PaymentScreen from './Screens/PaymentScreen'
+import OrderScreen from './Screens/OrderScreen'
+import AboutScreen from './Screens/AboutScreen'
+
+//Retailer Only Screens
+import RetailerOrdersScreen from './Screens/RetailerOrdersScreen'
+import RetailerOrderReviewScreen from './Screens/RetailerOrderReviewScreen'
+
+//Admin Only Screens
+
 
 function App() {
   return (
@@ -27,16 +36,24 @@ function App() {
         <Route path='/town/products/:id' component={StoreScreen} exact />
         <Route path='/town/retailers/:id' component={RetailerScreen} exact />
         <Route path='/town/retailer/products/:id' component={RetailerProductScreen} exact />
+        <Route path='/product/:id' component={ProductScreen} />
+        <Route path='/about' component={AboutScreen} exact />
 
         <Route path='/login' component={LoginScreen} />
         <Route path='/register' component={RegisterScreen} exact />
         <Route path='/register/complete' component={RegisterScreenTwo} exact />
         <Route path='/profile' component={ProfileScreen} />
 
-         <Route path='/cart/:id?' component={CartScreen} />
-         <Route path='/review/order' component={ReviewOrderScreen} exact/>
-         <Route path='/review/order/pay' component={PaymentScreen} exact />
-        <Route path='/product/:id' component={ProductScreen} />
+        <Route path='/cart/:id?' component={CartScreen} />
+        <Route path='/review/order' component={ReviewOrderScreen} exact/>
+        <Route path='/review/order/pay' component={PaymentScreen} exact />
+
+        <Route path='/order/:id' component={OrderScreen} />
+
+        <Route path='/retailers/orders' component={RetailerOrdersScreen} exact/>
+        <Route path='/retailers/orders/:id' component={RetailerOrderReviewScreen} exact/>
+
+        
 
       </div>
       

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, ListGroupItem, Image, Form, Button, ListGroup, Card, Container, FormControl } from 'react-bootstrap'
-import { saveShippingAddress, addToCart, removeFromCart } from '../Actions/cartActions'
+import { Row, Col, Card, Container, } from 'react-bootstrap'
+import { addToCart, removeFromCart } from '../Actions/cartActions'
 import CheckoutProgressBar from '../Components/CheckoutProgressBar'
 import FormContainer from '../Components/FormContainer'
 import Message from '../Components/Message'

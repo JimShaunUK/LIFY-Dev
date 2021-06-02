@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux'
-import { payOrder } from '../Actions/orderActions'
+import { createOrder, payOrder } from '../Actions/orderActions'
 import { useHistory } from "react-router-dom";
 import {
     CardElement,
@@ -12,6 +12,7 @@ import Field from "./Field";
 import Message from '../Components/Message'
 import FormContainer from "../Components/FormContainer";
 import Tick from '../Components/Tick'
+import { removeOrder, removeCart } from "../Actions/cartActions";
 //css provided by stripe to format elements
 
 const axios = require("axios");
@@ -240,11 +241,12 @@ export default function CreditCardForm(props, { match }) {
                  YOUR APPLICATION SPECIFIC CODE HERE:
                  for this example all we do is render a modal
                 */
-
+                dispatch(createOrder(order))
                 setSuccess(true);
 
-                //dispatch(payOrder(order._id, success))
-
+                //clear cart and current order on successful payment
+                dispatch(removeOrder())
+                dispatch(removeCart())
             }
         }
     }

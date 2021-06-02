@@ -34,7 +34,7 @@ const ReviewOrderScreen = ({ match, location, history }) => {
     const [town, setTown] = useState()
     const [county, setCounty] = useState()
     const [postcode, setPostcode] = useState()
-    const [delivery, setDelivery] = useState(false)
+    const [delivery, setDelivery] = useState(true)
     const [deliveryFee, setDeliveryFee] = useState(0)
     const [startDate, setStartDate] = useState(new Date())
 
@@ -98,7 +98,7 @@ const ReviewOrderScreen = ({ match, location, history }) => {
         const totalPrice = Number(cart.cartItems.reduce((acc, item) => acc + item.qty * item.price, 0) + deliveryFee + 3).toFixed(2)
         let PostCode = `${postcode}`
         dispatch(saveShippingAddress({ name, email, billingAddress, delivery, deliveryFee, startDate }))
-        dispatch(createOrder({ name, email, billingAddress, PostCode, totalPrice, cartItems }))
+        dispatch(createOrder({ name, email, billingAddress, PostCode, totalPrice, cartItems, delivery, deliveryFee }))
 
         history.push('/review/order/pay')
     }
@@ -123,7 +123,7 @@ const ReviewOrderScreen = ({ match, location, history }) => {
     return (
         <>
             <Container>
-                <Row Row className="justify-content-center">
+                <Row className="justify-content-center">
                     <Col xs={10}>
                         <CheckoutProgressBar val={60} />
                     </Col>
@@ -265,8 +265,8 @@ const ReviewOrderScreen = ({ match, location, history }) => {
                                     placeholder='Select delivery method...'
                                     onChange={deliveryOption}
                                     as="select">
-                                    <option value="false">collection</option>
-                                    <option value="true">delivery</option>
+                                    <option value="true">collection</option>
+                                    <option value="false">delivery</option>
                                 </FormControl>
                             </Form.Group>
 

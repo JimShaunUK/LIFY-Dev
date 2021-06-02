@@ -12,11 +12,6 @@ const customer_orderSchema = mongoose.Schema({
             qty: {type: Number, required: true},
             image: {type: String, required: true},
             price: {type: Number, required: true},
-            store:{
-                type:mongoose.Schema.Types.ObjectId,
-                required:true,
-                ref:"Store"
-            },
             product: {
                 type: mongoose.Schema.Types.ObjectId,
                 required:true,
@@ -33,18 +28,14 @@ const customer_orderSchema = mongoose.Schema({
         }
     ],
     shippingAddress:{
-        address:{type: String, required:true},
-        city:{type: String, required:true},
-        county:{type: String, required:true},
-        postcode:{type: String, required:true}
+        type: String, required:true
+    },
+    postcode:{
+        type: String, required:true
     },
     paymentMethod:{
         type:String,
         required:true
-    },
-    paymentRef:{
-        id:{type:String},
-        status:{type:String},
     },
     processingPrice:{
         type:Number,

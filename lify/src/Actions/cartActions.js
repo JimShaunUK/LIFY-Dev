@@ -63,3 +63,12 @@ export const removeOrder = (data) => (dispatch) =>{
 
     localStorage.removeItem('lifyOrder')
 }
+
+export const removeCart = (data) => (dispatch) =>{
+    dispatch({
+        type:'CART_CLEAR_ITEMS',
+        payload: data,
+    })
+
+    localStorage.removeItem('cartItems')
+}

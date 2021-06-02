@@ -48,7 +48,7 @@ const Header = ({ history }) => {
                     <Navbar.Toggle id="test" aria-controls="basic-navbar-nav" />
                     <LinkContainer to="/search">
                         <Nav.Link> <span>
-                            <img className="nav-img" src={`images/search.png`} alt="search"></img>
+                            <img className="nav-img" src={`/images/search.png`} alt="search"></img>
                         </span></Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/">
@@ -56,12 +56,12 @@ const Header = ({ history }) => {
                     </LinkContainer>
                     <LinkContainer to="/profile">
                         <Nav.Link> <span>
-                            <img className="nav-img" src={`images/profile.png`} alt="account"></img>
+                            <img className="nav-img" src={`/images/profile.png`} alt="account"></img>
                         </span></Nav.Link>
                     </LinkContainer>
                     <LinkContainer to="/cart">
                         <Nav.Link> <span>
-                            <img className="nav-img" src={`images/basket.png`} alt="basket"></img>
+                            <img className="nav-img" src={`/images/basket.png`} alt="basket"></img>
                         </span></Nav.Link>
                     </LinkContainer>
                 </Container>

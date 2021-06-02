@@ -38,6 +38,13 @@ const ProfileScreen = ({ location, history }) => {
 
 
     useEffect(() => {
+
+        if (!userInfo || userInfo.length === 0) {
+
+            history.push('/register')
+        }
+
+
         if (error) {
             console.log(error)
             //dispatch(logout())
@@ -99,8 +106,8 @@ const ProfileScreen = ({ location, history }) => {
                                     <th>Order Ref</th>
                                     <th>Date</th>
                                     <th>Total</th>
-                                    <th>Paid</th>
-                                    <th>Dispatched</th>
+
+                                    <th>type</th>
                                     <th>Review Order</th>
                                 </tr>
                             </thead>
@@ -110,12 +117,11 @@ const ProfileScreen = ({ location, history }) => {
                                         <td>{(order._id).slice(-6)}</td>
                                         <td>{order.createdAt.substring(0, 10)}</td>
                                         <td><b>£{order.totalPrice}</b></td>
-                                        <td>{order.isPaid ? order.paidAt.substring(0, 10) : <span class="material-icons" style={{ color: "red" }}>
-                                            warning
-                                        </span>}</td>
-                                        <td>{order.isDelivered ? order.deliveredAt.substring(0, 10) : <span class="material-icons" style={{ color: "red" }}>
-                                            warning
-                                        </span>}</td>
+                                        <td>{order.isCollection ? <p>
+                                            collection
+                                        </p> : <p>
+                                            delivery
+                                        </p>}</td>
                                         <td>
                                             <LinkContainer to={`/order/${order._id}`}>
                                                 <Button variant='primary' className="rounded">Details</Button>

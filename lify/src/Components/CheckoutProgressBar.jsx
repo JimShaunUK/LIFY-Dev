@@ -27,9 +27,12 @@ const CheckoutProgressBar = ({ val }) => {
                 <Nav.Item>
                     <Link to='/review/order' className="shop-link w-100 mx-3">review/shipping</Link>
                 </Nav.Item>
+
                 <Nav.Item>
-                    <Link to='/review/order/pay' className="shop-link w-100 mx-3">pay</Link>
+                    <Link className="shop-link w-100 mx-3" disabled>pay</Link>
                 </Nav.Item>
+
+
 
 
             </Nav>
