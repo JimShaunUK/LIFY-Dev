@@ -19,7 +19,7 @@ const ResultsScreen = ({ match, history }) => {
 
     const searchAll = useSelector(state => state.searchAll)
     const { loading, error, result } = searchAll
-    const { products, towns, retailers } = result
+    const { products, towns, retailers } = useSelector(state => state.searchAll.result)
     useEffect(() => {
 
         dispatch(searchProducts(keyword))
@@ -34,44 +34,53 @@ const ResultsScreen = ({ match, history }) => {
                     <h1 className="shop-header py-3 text-center">This is what "{keyword}" turned up in our partners product ranges</h1>
                     <Row>
 
-                        {products.length === 0 ? (<Message>No Results, sorry!</Message>)
-                            : (
+                        <>
+                            {!products ? (<Message>No Results, sorry!</Message>)
+                                : (
 
-                                products.map(product => (
-                                    <Col className="p-0" xs={3}>
-                                        <Product product={product} />
-                                    </Col>
-                                ))
+                                    products.map(product => (
+                                        <Col className="p-0" xs={6} md={6} lg={4}>
+                                            <Product product={product} />
+                                        </Col>
+                                    ))
 
-                            )}
+                                )}
+                        </>
 
                     </Row>
                     <h1 className="shop-header py-3 text-center">These are the retailers that might respond to being called "{keyword}"</h1>
                     <Row>
 
-                        {retailers.length === 0 ? (<Message>No Results, sorry!</Message>)
+                        <>
+                            {!retailers ? (<Message>No Results, sorry!</Message>)
+                                : (
+
+                                    retailers.map(retailer => (
+                                        <Col className="p-0" xs={6} md={6} lg={4}>
+                                            <Retailer retailer={retailer} />
+                                        </Col>
+                                    ))
+
+                                )}
+                        </>
+
+
+                    </Row>
+                    <h1 className="shop-header py-3 text-center">And just in case, these our our partner locations that go by "{keyword}"</h1>
+
+                    <>
+                        {!towns ? (<Message>No Results, sorry!</Message>)
                             : (
 
-                                retailers.map(retailer => (
+                                towns.map(town => (
                                     <Col className="p-0" xs={3}>
-                                        <Retailer retailer={retailer} />
+                                        <Town town={town} />
                                     </Col>
                                 ))
 
                             )}
+                    </>
 
-                    </Row>
-                    <h1 className="shop-header py-3 text-center">And just in case, these our our partner locations that go by "{keyword}"</h1>
-                    {towns.length === 0 ? (<Message>No Results, sorry!</Message>)
-                        : (
-
-                            towns.map(town => (
-                                <Col className="p-0" xs={3}>
-                                    <Town town={town} />
-                                </Col>
-                            ))
-
-                        )}
                 </Container>
             )}
         </>
