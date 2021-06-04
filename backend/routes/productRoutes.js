@@ -3,12 +3,15 @@ const router = express.Router()
 import { 
     getProductsByLocation, 
     getProductById,
-    getProductsByRetailer
+    getProductsByRetailer,
+    searchProducts
  } from '../controllers/productController.js'
 import {protect, adminCheck} from '../middleware/authorizeMiddleware.js'
 
 //get all products from backend
 router.route('/:id').get(getProductsByLocation)
+
+router.route('/all/search').get(searchProducts)
 
 router.route('/retailer/:id').get(getProductsByRetailer)
 

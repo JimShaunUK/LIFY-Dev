@@ -164,13 +164,37 @@ const getProductsByRetailer= asyncHandler(async (req, res) =>{
 
 })
 
+const searchProducts = asyncHandler(async (req, res) =>{
 
+    const keyword = req.query.keyword ? {
+        name:{
+            $regex: req.query.keyword,
+            $options: 'i'
+        }
+
+    }:{
+
+    }
+
+    console.log("product request")
+
+    const products = await Product.find({...keyword})
+    const retailers = await Store.find({...keyword})
+    const towns = await Town.find({...keyword})
+
+    const result = {
+        products,
+        retailers,
+        towns,
+    }
+    res.json(result);
+})
 
 export {
     getProductsByLocation,
     getProductById,
-    getProductsByRetailer
-   
+    getProductsByRetailer,
+    searchProducts 
 }
 
 //

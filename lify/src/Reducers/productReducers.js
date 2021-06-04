@@ -80,3 +80,16 @@ export const productUpdateReducer = (state = {product:{}}, action)=>{
             return state
     }
 }
+
+export const searchAllReducer = (state = {result:{}}, action)=>{
+    switch (action.type){
+        case 'SEARCH_REQUEST':
+            return {loading:true, ...state}
+        case 'SEARCH_SUCCESS':
+            return {loading:false, result: action.payload}
+        case 'SEARCH_FAIL':
+            return {loading:false, error: action.payload}
+        default:
+            return state
+    }
+}

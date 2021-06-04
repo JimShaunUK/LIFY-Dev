@@ -17,6 +17,8 @@ import ReviewOrderScreen from './Screens/ReviewOrderScreen'
 import PaymentScreen from './Screens/PaymentScreen'
 import OrderScreen from './Screens/OrderScreen'
 import AboutScreen from './Screens/AboutScreen'
+import SearchScreen from './Screens/SearchScreen'
+import ResultsScreen from './Screens/ResultsScreen'
 
 //Retailer Only Screens
 import RetailerOrdersScreen from './Screens/RetailerOrdersScreen'
@@ -38,6 +40,9 @@ function App() {
         <Route path='/town/retailer/products/:id' component={RetailerProductScreen} exact />
         <Route path='/product/:id' component={ProductScreen} />
         <Route path='/about' component={AboutScreen} exact />
+
+        <Route path='/search' component={SearchScreen} exact />
+        <Route path='/results/:keyword' component={ResultsScreen} exact />
 
         <Route path='/login' component={LoginScreen} />
         <Route path='/register' component={RegisterScreen} exact />
