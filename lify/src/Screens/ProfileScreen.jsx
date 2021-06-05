@@ -90,7 +90,7 @@ const ProfileScreen = ({ location, history }) => {
 
     return <>
 
-        <img className="w-100" src={"images/account.jpg"} alt="account banner"></img>
+        <img className="w-100" src={"/images/account.jpg"} alt="account banner"></img>
 
 
         <Container >

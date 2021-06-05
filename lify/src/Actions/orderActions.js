@@ -264,3 +264,93 @@ export const listOrders = () => async(dispatch, getState) => {
     }
 
 }
+
+
+export const listRetailerOrders = () => async(dispatch, getState) => {
+
+
+    try{
+        dispatch({
+            type: 'RETAILER_ORDER_LIST_REQUEST'
+        })
+
+        const {userLogin: {userInfo}} = getState()
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.get(`/api/retailer/orders/all`, config)
+        
+        dispatch({
+            type: 'RETAILER_ORDER_LIST_SUCCESS',
+            payload: data
+        })
+
+
+        
+        
+   
+    }
+    catch(error){
+        const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+   
+         dispatch({
+            type: 'RETAILER_ORDER_LIST_FAIL',
+            payload: message
+        })
+    }
+
+}
+
+
+
+
+export const getRetailerOrderDetails = (id) => async(dispatch, getState) => {
+
+
+    try{
+        dispatch({
+            type: 'RETAILER_ORDER_DETAILS_REQUEST'
+        })
+
+        const {userLogin: {userInfo}} = getState()
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+
+        const {data} = await axios.get(`/api/retailer/orders/all/${id}`, config)
+        
+        dispatch({
+            type: 'RETAILER_ORDER_DETAILS_SUCCESS',
+            payload: data
+        })
+
+
+        
+        
+   
+    }
+    catch(error){
+        const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+         dispatch({
+            type: 'RETAILER_ORDER_DETAILS_FAIL',
+            payload: message
+        })
+    }
+
+}

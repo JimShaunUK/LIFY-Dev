@@ -60,7 +60,26 @@ const getUserProfile = asyncHandler(async (req, res) =>{
 
 })
 
+const getCustomer = asyncHandler(async (req, res) =>{
 
+   const customer = await User.findById(req.params.id)
+
+   if (customer){
+    res.json({
+        _id: customer._id,
+            name: customer.name,
+            email: customer.email,
+            phone: customer.phone,
+            address:customer.address,
+
+    })
+   }
+   else{
+       res.status(404)
+       throw new Error('customer Account Not Found!')
+   }
+
+})
 
 //@desc  REGISTER A NEW USER
 //@route POST /api/users
@@ -343,4 +362,4 @@ const updateUser = asyncHandler(async (req, res) =>{
 
 })
 
-export {registerUser, verifyUser, registerCourierUser, registerRetailUser, getUserProfile, authUser, updateUserProfile, getUsers, deleteUser, getUserById, updateUser}
+export {getCustomer, registerUser, verifyUser, registerCourierUser, registerRetailUser, getUserProfile, authUser, updateUserProfile, getUsers, deleteUser, getUserById, updateUser}

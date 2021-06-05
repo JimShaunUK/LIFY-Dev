@@ -2,7 +2,7 @@ import asyncHandler from 'express-async-handler'
 import Store from '../models/StoreModel.js'
 import Town from '../models/TownModel.js'
 import Product from '../models/ProductModel.js'
-
+import StoreOrders from '../models/StoreOrderModel.js'
 
 /*
 const getRetailers = asyncHandler(async (req, res) =>{
@@ -128,6 +128,57 @@ const getRetailerById = asyncHandler(async (req, res) =>{
 })
 
 
+//get single product for product page
+const getRetailerOrders = asyncHandler(async (req, res) =>{
+     
+        
+
+        const ref = await Store.findOne({owner:req.user._id})
+        
+
+        if (ref){
+            const orders = await StoreOrders.find({store:ref._id})
+
+            //console.log(orders)
+            res.json(orders)
+        }
+        else{
+            res.status(404)
+            throw new Error('Error accessing store orders!')
+        }
+   
+})
+
+const getRetailerOrderDetails = asyncHandler(async (req, res) =>{
+
+    const order = await StoreOrders.findById(req.params.id) 
+
+    if (order){
+        res.json(order)
+    }else{
+        res.status(404)
+        throw new Error('Order not found!')
+        
+    }
+
+})
+
+const getRetailerDetails = asyncHandler(async (req, res) =>{
+    console.log('WARNING WARNING')
+    const retail = await Store.findOne({owner:req.user._id}) 
+
+    if (retail){
+        res.json(retail)
+    }else{
+        res.status(404)
+        throw new Error('Store not found!')
+        
+    }
+
+})
+
+
+
 
 //function to find nearest 
 function GetDistance(lat1, lon1, lat2, lon2, unit) {
@@ -225,5 +276,9 @@ export {
     getRetailersByLocation,
     getRetailerById,
     registerRetailer,
-    updateRetailer
+    updateRetailer,
+    getRetailerOrders,
+    getRetailerOrderDetails,
+    getRetailerDetails
 }
+

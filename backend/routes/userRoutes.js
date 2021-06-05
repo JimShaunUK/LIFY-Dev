@@ -10,9 +10,10 @@ import { authUser,
     updateUserProfile, 
     deleteUser,
     getUserById,
-    updateUser
+    updateUser,
+    getCustomer
 } from '../controllers/userController.js'
-import {protect, adminCheck} from '../middleware/authorizeMiddleware.js'
+import {protect, adminCheck, retailerCheck} from '../middleware/authorizeMiddleware.js'
 
 //get all products from backend
 
@@ -27,6 +28,9 @@ router.route('/verify/:id').put(protect, adminCheck, verifyUser)
 
 //login and generic routes
 router.post('/login', authUser)
+
+//get customer info
+router.route('/customer/:id').get(protect, retailerCheck, getCustomer)
 
 router.route('/profile').get(protect, getUserProfile).put(protect, updateUserProfile)
 

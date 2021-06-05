@@ -104,3 +104,18 @@ export const userUpdateReducer = (state = { user: {} }, action) => {
       return state
   }
 }
+
+export const customerDetailsReducer = (state = { customer: {} }, action) => {
+  switch (action.type) {
+    case 'CUSTOMER_DETAILS_REQUEST':
+      return { ...state, loading: true }
+    case 'CUSTOMER_DETAILS_SUCCESS':
+      return { loading: false, customer: action.payload }
+    case 'CUSTOMER_DETAILS_FAIL':
+      return { loading: false, customer: action.payload }
+    case 'CUSTOMER_DETAILS_RESET':
+      return { customer: {} }
+    default:
+      return state
+  }
+}

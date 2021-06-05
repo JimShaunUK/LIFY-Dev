@@ -1,41 +1,64 @@
 import React, { useState } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
+import Message from '../Components/Message'
+import FormContainer from '../Components/FormContainer'
 
 const SearchScreen = ({ history }) => {
     const [keyword, setKeyword] = useState('')
+    const [message, setMessage] = useState('')
 
     const submitHandler = (e) => {
         e.preventDefault()
-        if (keyword.trim()) {
+        if (keyword === '') {
+            setMessage('Enter a search term to search!')
+        }
+        else if (keyword.trim()) {
             history.push(`/results/${keyword}`)
         }
-        else {
-            history.push('/store')
-        }
+
+    }
+
+    const btnStyle = {
+        display: 'block',
+        backgroundColor: 'black',
+        color: 'white',
+        fontFamily: 'arial',
+        letterSpacing: '0.2rem',
+        borderRadius: "0",
+        alignItems: 'center',
+        justifyContent: 'center',
+        textDecoration: 'none',
+        display: 'block'
     }
 
     return (
         <>
-            <Form onSubmit={submitHandler} className="form-search">
-                <Row>
-                    <Col xs={6} sm={6} md={8}>
+            <h2 className="shop-header-large py-3 text-center">looking for something?</h2>
+            <h4 className="shop-header  text-center">search for products, shops or locations</h4>
+
+            <FormContainer>
+                <Form onSubmit={submitHandler} className="form-search">
+                    {message && <Message>{message}</Message>}
+                    <Row>
+
                         <Form.Control
                             name='q'
                             onChange={(e) => setKeyword(e.target.value)}
-                            className="mb-2"
+                            className="my-3"
                             id="inlineFormInput"
-                            placeholder="Search Products"
+                            placeholder="search for something!"
                         />
-                    </Col>
 
 
-                    <Col xs={6} sm={6} md={4}>
-                        <Button type="submit" variant='outline-warning rounded' className="mb-2 btn btn-block">
-                            Search
-                    </Button>
-                    </Col>
-                </Row>
-            </Form>
+
+                        <Col>
+                            <Button type="submit" style={btnStyle} className="my-2 w-100">
+                                Search
+                            </Button>
+                        </Col>
+                    </Row>
+                </Form>
+            </FormContainer>
         </>
     )
 

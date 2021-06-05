@@ -6,6 +6,7 @@ import { searchProducts } from '../Actions/productActions'
 import Product from '../Components/Product'
 import Retailer from '../Components/Retailer'
 import Town from '../Components/Town'
+import { Link } from 'react-router-dom'
 
 import Loader from '../Components/Loader'
 import Message from '../Components/Message'
@@ -26,6 +27,23 @@ const ResultsScreen = ({ match, history }) => {
 
     }, [dispatch, keyword])
 
+    const goBack = () => {
+        history.goBack()
+    }
+
+    const btnStyle = {
+        display: 'block',
+        backgroundColor: 'black',
+        color: 'white',
+        fontFamily: 'arial',
+        letterSpacing: '0.2rem',
+        borderRadius: "0",
+        alignItems: 'center',
+        justifyContent: 'center',
+        textDecoration: 'none',
+        display: 'block'
+    }
+
     return (
         <>
             {loading ? (<Loader />) : (
@@ -34,18 +52,18 @@ const ResultsScreen = ({ match, history }) => {
                     <h1 className="shop-header py-3 text-center">This is what "{keyword}" turned up in our partners product ranges</h1>
                     <Row>
 
-                        <>
-                            {!products ? (<Message>No Results, sorry!</Message>)
-                                : (
 
-                                    products.map(product => (
-                                        <Col className="p-0" xs={6} md={6} lg={4}>
-                                            <Product product={product} />
-                                        </Col>
-                                    ))
+                        {!products ? (<Message>No Results, sorry!</Message>)
+                            : (
 
-                                )}
-                        </>
+                                products.map(product => (
+                                    <Col className="p-0" xs={6} md={6} lg={4}>
+                                        <Product product={product} />
+                                    </Col>
+                                ))
+
+                            )}
+
 
                     </Row>
                     <h1 className="shop-header py-3 text-center">These are the retailers that might respond to being called "{keyword}"</h1>
@@ -62,24 +80,34 @@ const ResultsScreen = ({ match, history }) => {
                                     ))
 
                                 )}
+
                         </>
 
 
                     </Row>
-                    <h1 className="shop-header py-3 text-center">And just in case, these our our partner locations that go by "{keyword}"</h1>
+                    <Row>
+                        <h1 className="shop-header py-3 text-center">And just in case, these our our partner locations that go by "{keyword}"</h1>
 
-                    <>
-                        {!towns ? (<Message>No Results, sorry!</Message>)
-                            : (
+                        <>
+                            {!towns ? (<Message>No Results, sorry!</Message>)
+                                : (
 
-                                towns.map(town => (
-                                    <Col className="p-0" xs={3}>
-                                        <Town town={town} />
-                                    </Col>
-                                ))
+                                    towns.map(town => (
+                                        <Col className="p-0" xs={3}>
+                                            <Town town={town} />
+                                        </Col>
+                                    ))
 
-                            )}
-                    </>
+                                )}
+
+                        </>
+                    </Row>
+                    <Row>
+                        <p className="shop-header py-3 text-center">can't find what you need?</p>
+                        <Button onClick={goBack} type="submit" style={btnStyle} className=" w-100">
+                            Search again?
+                            </Button>
+                    </Row>
 
                 </Container>
             )}

@@ -160,3 +160,55 @@ export const orderListReducer = (state = {orders:[]}, action) =>{
     }
 
 }
+
+
+export const retailerOrderListReducer = (state = {retailOrders:[]}, action) =>{
+
+    switch(action.type){
+        case 'RETAILER_ORDER_LIST_REQUEST':
+            return{
+                loading:true
+            }
+        case 'RETAILER_ORDER_LIST_SUCCESS':
+            return{
+                loading:false,
+                retailOrders: action.payload
+            }
+        case 'RETAILER_ORDER_LIST_FAIL':
+            return{
+                loading:false,
+                error: action.payload
+            }
+        case 'RETAILER_ORDER_LIST_RESET':
+            return{
+                retailOrders:[]
+            }
+        default:
+            return state
+    }
+
+}
+
+export const retailerOrderDetailsReducer = (state = {loading:true, orderItems:[], shippingAddress:{}}, action) =>{
+
+    switch(action.type){
+        case 'RETAILER_ORDER_DETAILS_REQUEST':
+            return{
+                ...state,
+                loading:true
+            }
+        case 'RETAILER_ORDER_DETAILS_SUCCESS':
+            return{
+                loading:false,
+                order: action.payload
+            }
+        case 'RETAILER_ORDER_DETAILS_FAIL':
+            return{
+                loading:true,
+                error: action.payload
+            }
+        default:
+            return state
+    }
+
+}

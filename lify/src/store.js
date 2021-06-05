@@ -2,10 +2,10 @@ import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import {productListReducer, productDetailsReducer, productListByRetailerReducer, searchAllReducer} from './Reducers/productReducers'
-import { retailerDetailsReducer, retailerListReducer } from './Reducers/retailerReducers'
+import { retailerDetailsOwnerReducer, retailerDetailsReducer, retailerListReducer } from './Reducers/retailerReducers'
 import { townDetailsReducer, townListReducer } from './Reducers/townReducers'
-import { userDeleteReducer, userDetailsReducer, userListReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer, userUpdateReducer } from './Reducers/userReducers'
-import { orderCreateReducer, orderDeliverReducer, orderDetailsReducer, orderListMyReducer, orderListReducer, orderPayReducer } from './Reducers/orderReducers'
+import { customerDetailsReducer, userDeleteReducer, userDetailsReducer, userListReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer, userUpdateReducer } from './Reducers/userReducers'
+import { orderCreateReducer, orderDeliverReducer, orderDetailsReducer, orderListMyReducer, orderListReducer, orderPayReducer, retailerOrderDetailsReducer, retailerOrderListReducer } from './Reducers/orderReducers'
 import { cartReducer } from './Reducers/cartReducer'
 
 const reducer = combineReducers({
@@ -32,6 +32,10 @@ const reducer = combineReducers({
     orderList:orderListReducer,
     orderDeliver:orderDeliverReducer,
     searchAll:searchAllReducer,
+    retailerOrderList:retailerOrderListReducer,
+    retailerOrderDetails:retailerOrderDetailsReducer,
+    retailerDetailsOwner:retailerDetailsOwnerReducer,
+    customerDetails:customerDetailsReducer
 })
 
 const cartItemsFromStorage = localStorage.getItem('cartItems')?

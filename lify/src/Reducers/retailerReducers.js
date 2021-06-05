@@ -25,6 +25,20 @@ export const retailerDetailsReducer = (state = {retailer: {}}, action)=>{
     }
 }
 
+
+export const retailerDetailsOwnerReducer = (state = {retailerDetail: {}}, action)=>{
+    switch (action.type){
+        case 'OWNER_RETAILER_DETAILS_REQUEST':
+            return {loading:true}
+        case 'OWNER_RETAILER_DETAILS_SUCCESS':
+            return {loading:false, retailerDetail: action.payload}
+        case 'OWNER_RETAILER_DETAILS_FAIL':
+            return {loading:false, error: action.payload}
+        default:
+            return state
+    }
+}
+
 export const retailerDeleteReducer = (state = {}, action)=>{
     switch (action.type){
         case 'RETAILER_DELETE_REQUEST':

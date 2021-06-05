@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, Row, Col, FormControl, Table, Container } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUserProfile, logout } from '../Actions/userActions'
-import { listMyOrders } from '../Actions/orderActions'
+import { listMyOrders, listRetailerOrders } from '../Actions/orderActions'
+import { listRetailerOwnerDetails } from '../Actions/retailerActions'
 import Loader from '../Components/Loader'
 import Message from '../Components/Message'
+import { Link } from 'react-router-dom'
 
 
 
 
 
-const RetailerOrderScreen = ({ location, history }) => {
+const ProfileScreen = ({ location, history }) => {
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
@@ -32,9 +33,14 @@ const RetailerOrderScreen = ({ location, history }) => {
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
     const { success } = userUpdateProfile
 
-    const orderListMy = useSelector(state => state.orderListMy)
-    const { orders, loading: loadingOrders, error: errorOrders } = orderListMy
+    //const orderListMy = useSelector(state => state.orderListMy)
+    //const { orders, loading: loadingOrders, error: errorOrders } = orderListMy
 
+    const retailerOrderList = useSelector(state => state.retailerOrderList)
+    const { retailOrders, loading: loadingROrders, error: errorROrders } = retailerOrderList
+
+    const retailerDetailsOwner = useSelector(state => state.retailerDetailsOwner)
+    const { retailerDetail, loading: loadingRDetails, error: errorRDetails } = retailerDetailsOwner
 
 
     useEffect(() => {
@@ -55,6 +61,8 @@ const RetailerOrderScreen = ({ location, history }) => {
             dispatch({ type: 'USER_UPDATE_PROFILE_RESET' })
             dispatch(getUserDetails('profile'))
             dispatch(listMyOrders())
+            dispatch(listRetailerOrders())
+            dispatch(listRetailerOwnerDetails(user._id))
         } else {
             setName(user.name)
             setEmail(user.email)
@@ -88,17 +96,39 @@ const RetailerOrderScreen = ({ location, history }) => {
         display: 'block'
     }
 
+    const red = {
+        color: 'red',
+        fontWeight: 'bold'
+    }
+
     return <>
+        {loadingRDetails ? (<Loader />) : (
+            <>
+                <img className="w-100" src={retailerDetail.image} alt="account banner"></img>
 
-        <img className="w-100" src={"images/account.jpg"} alt="account banner"></img>
+                <Container >
+                    <Row>
+                        <Col className="justify-content-center checkout-text py-2" xs={12}>
+                            <h2 className="shop-header-large py-3 text-center">all customer orders for {retailerDetail.name}</h2>
+                            <br></br><br></br>
+                            <strong className="shop-text">Phone:  </strong>{retailerDetail.phone}<br></br>
+                            <strong className="shop-text"> Email:  </strong><a href={`mailto:${retailerDetail.email}`}>{retailerDetail.email}</a><br></br>
+                            <strong className="shop-text">Address:  </strong>{retailerDetail.address}
 
+                            <br></br><br></br>
+                        </Col>
+                    </Row>
+                </Container>
+            </>
+        )}
+        {errorRDetails && <Message variant="danger">{errorRDetails}</Message>}
 
         <Container >
             <Row>
                 <Col className="justify-content-center" xs={12}>
-                    <h2 className="shop-header-large py-3 text-center">your recent orders</h2>
+
                     <br></br>
-                    {loadingOrders ? <Loader /> : errorOrders ? <Message variant='danger'>{errorOrders}</Message> : (
+                    {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : (
 
                         <Table striped borded hover responsive className="table-sm">
                             <thead>
@@ -106,131 +136,64 @@ const RetailerOrderScreen = ({ location, history }) => {
                                     <th>Order Ref</th>
                                     <th>Date</th>
                                     <th>Total</th>
-
                                     <th>type</th>
-                                    <th>Review Order</th>
+                                    <th>updates</th>
+
+                                    <th></th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                {orders.map((order) => (
-                                    <tr key={order._id}>
-                                        <td>{(order._id).slice(-6)}</td>
-                                        <td>{order.createdAt.substring(0, 10)}</td>
-                                        <td><b>£{order.totalPrice}</b></td>
-                                        <td>{order.isCollection ? <p>
-                                            collection
+                            {loadingROrders ? (<Loader />) : (
+                                <>
+                                    <tbody>
+                                        {retailOrders.map((order) => (
+                                            <tr key={order._id}>
+                                                <td>{(order._id).slice(-6)}</td>
+                                                <td>{order.createdAt.substring(0, 10)}</td>
+                                                <td><b>£{order.totalPrice}</b></td>
+                                                <td>{order.isCollection ? <p>
+                                                    collection
                                         </p> : <p>
-                                            delivery
+                                                    delivery
                                         </p>}</td>
-                                        <td>
-                                            <LinkContainer to={`/order/${order._id}`}>
-                                                <Button variant='primary' className="rounded">Details</Button>
-                                            </LinkContainer>
-                                        </td>
-                                    </tr>
-                                ))}
+                                                <td>{order.isReady ? <p>
+                                                    No
+                                        </p> : <p style={red}>
+                                                    Action required
+                                        </p>}</td>
+                                                <td>
+                                                    <Link to={`/retailers/orders/${order._id}`}>
+                                                        <Button style={btnStyle}>
+
+                                                            Inspect
+
+                                                        </Button>
+                                                    </Link>
+                                                </td>
+                                            </tr>
+                                        ))}
 
 
 
-                            </tbody>
-
+                                    </tbody>
+                                </>
+                            )}
                         </Table>
 
                     )}
-                    {orders ? (orders.length === 0 && <Message className="w-100" variant="info">no orders yet!</Message>) : (<Loader />)}
+                    {retailOrders ? (retailOrders.length === 0 && <Message className="w-100" variant="info">no orders yet!</Message>) : (<Loader />)}
                 </Col>
             </Row>
 
             <Row>
-                <h2 className="shop-header-large py-3 text-center">need to speak to someone?</h2>
+                <h2 className="shop-header-large py-3 text-center">need to speak to our service team?</h2>
                 <Col className="text-center my-3" xs={6}> <div style={btnStyle} className="btn">problem with an order</div> </Col>
-                <Col className="text-center my-3" xs={6}> <div style={btnStyle} className="btn">wheres my stuff?</div> </Col>
-                <Col className="text-center my-3" xs={6}> <div style={btnStyle} className="btn">can i deliver too? </div> </Col>
+                <Col className="text-center my-3" xs={6}> <div style={btnStyle} className="btn">customer payment suspicious?</div> </Col>
+                <Col className="text-center my-3" xs={6}> <div style={btnStyle} className="btn">customer non-responsive </div> </Col>
                 <Col className="text-center my-3" xs={6}> <div style={btnStyle} className="btn">or something else</div> </Col>
             </Row>
-            <Row>
 
-                <Col md={12}>
-                    <h2 className="shop-header-large py-3 text-center">details changed?</h2>
-                    <h4 className="shop-header  text-center">view and update details here</h4>
-                    {error && <Message variant='danger'>{errorOrders}</Message>}
-                    {message && <Message variant='danger'>{message}</Message>}
-                    {success && <Message variant='success'>Profile Updated!</Message>}
-                    {loading && <Loader />}
-                    <Form onSubmit={submitHandler}>
-                        <Form.Group controlId='name'>
-                            <Form.Label>Update Account Name</Form.Label>
-                            <FormControl
-                                type='name'
-                                placeholder='Enter name...'
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            ></FormControl>
-                        </Form.Group>
-                        <Form.Group controlId='email'>
-                            <Form.Label>Update Account Email</Form.Label>
-                            <FormControl
-                                type='email'
-                                placeholder='Enter email...'
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                            ></FormControl>
-                        </Form.Group>
-
-                        <Form.Group controlId='phone'>
-                            <Form.Label>Update Account Phone</Form.Label>
-                            <FormControl
-                                type='phone'
-                                placeholder='Enter Phone Number...'
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
-                            ></FormControl>
-                        </Form.Group>
-
-                        <Form.Group controlId='address'>
-                            <Form.Label>Update Account Address</Form.Label>
-                            <FormControl
-                                type='address'
-                                placeholder='Enter email...'
-                                value={address}
-                                onChange={(e) => setAddress(e.target.value)}
-                            ></FormControl>
-                        </Form.Group>
-
-                        <Form.Group controlId='password'>
-                            <Form.Label>Update Password</Form.Label>
-                            <FormControl
-                                type='password'
-                                placeholder='Enter password...'
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            ></FormControl>
-                        </Form.Group>
-                        <Form.Group controlId='confirmPassword'>
-                            <Form.Label>Confirm Updated Password</Form.Label>
-                            <FormControl
-                                type='password'
-                                placeholder='Confirm password...'
-                                value={confirmPassword}
-                                onChange={(e) => setConfirmPassword(e.target.value)}
-                            ></FormControl>
-                        </Form.Group>
-                        <Button
-                            style={btnStyle}
-                            type='submit'
-                            className="w-100 btn block my-2"
-                            block
-                        >Save!</Button>
-
-
-                    </Form>
-
-                </Col>
-
-
-            </Row>
         </Container>
     </>
 }
 
-export default RetailerOrderScreen
+export default ProfileScreen

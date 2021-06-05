@@ -8,7 +8,7 @@ import {
     getOrders,
     updateOrderDispatched
 } from '../controllers/orderController.js'
-import {protect, adminCheck} from '../middleware/authorizeMiddleware.js'
+import {protect, adminCheck, retailerCheck} from '../middleware/authorizeMiddleware.js'
 
 //get all products from backend
 
@@ -21,6 +21,6 @@ router.route(('/:id')).get(protect, getOrderById)
 
 
 router.route(('/:id/pay')).put(protect, updateOrderToPaid)
-router.route(('/:id/dispatch')).put(protect, adminCheck, updateOrderDispatched)
+router.route(('/:id/dispatch')).put(protect, retailerCheck, updateOrderDispatched)
 
 export default router
