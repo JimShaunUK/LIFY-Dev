@@ -90,10 +90,8 @@ const Header = ({ history }) => {
 
                                 {userInfo && userInfo.isRetailer && (
                                     <>
-                                        <Link to="/">
-                                            <div className="nav-block-retailer py-1  my-1 mx-1 nav-text">retailer dashboard</div>
-                                        </Link>
-                                        <Link to="/">
+                                        <hr />
+                                        <Link to="/retailer/productlist">
                                             <div className="nav-block-retailer py-1  my-1 mx-1 nav-text">manage store</div>
                                         </Link>
                                         <Link to="/retailers/orders">

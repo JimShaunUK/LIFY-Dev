@@ -287,7 +287,7 @@ export default function CreditCardForm(props, { match }) {
 
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button style={btnStyle} className="btn" onClick={() => { history.push('/') }}>Finish!</Button>
+                        <Button style={btnStyle} className="btn" onClick={() => { history.push('/profile') }}>Finish!</Button>
 
                     </Modal.Footer>
                 </Modal>

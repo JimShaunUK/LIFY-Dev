@@ -21,6 +21,32 @@ export const listProducts = (id) => async (dispatch)=>{
     }
 }
 
+export const listProductsManage = () => async (dispatch, getState)=>{
+    try {
+        dispatch({type: 'MANAGE_PRODUCT_LIST_REQUEST'})
+
+         const {userLogin: {userInfo}} = getState()
+
+        const config = {
+            headers:{
+                Authorization: `Bearer ${userInfo.token}`
+            }
+        }
+        
+        const {data} = await axios.get(`/api/products/manage/products`, config)
+        dispatch({
+            type: 'MANAGE_PRODUCT_LIST_SUCCESS',
+            payload: data
+        })
+    }
+    catch(error){
+        dispatch({
+            type: 'MANAGE_PRODUCT_LIST_FAIL',
+            payload:error.response && error.response.data.message ? error.response.data.message: error.message
+        })
+    }
+}
+
 export const listProductsByRetailer = (id) => async (dispatch)=>{
     try {
         dispatch({type: 'PRODUCT_LIST_BY_RETAILER_REQUEST'})

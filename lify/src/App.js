@@ -23,7 +23,8 @@ import ResultsScreen from './Screens/ResultsScreen'
 //Retailer Only Screens
 import RetailerOrdersScreen from './Screens/RetailerOrdersScreen'
 import RetailerOrderReviewScreen from './Screens/RetailerOrderReviewScreen'
-
+import ProductListScreen from './Screens/ProductListScreen'
+import ProductEditScreen from './Screens/ProductEditScreen'
 //Admin Only Screens
 
 
@@ -58,8 +59,8 @@ function App() {
         <Route path='/retailers/orders' component={RetailerOrdersScreen} exact/>
         <Route path='/retailers/orders/:id' component={RetailerOrderReviewScreen} exact/>
 
-        
-
+        <Route path='/retailer/productlist' component={ProductListScreen} />
+         <Route path='/retailer/product/:id/edit' component={ProductEditScreen} />
       </div>
       
       <Footer />

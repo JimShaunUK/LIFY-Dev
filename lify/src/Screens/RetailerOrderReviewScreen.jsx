@@ -6,6 +6,7 @@ import Loader from '../Components/Loader'
 import Message from '../Components/Message'
 import { deliverOrder, getRetailerOrderDetails } from '../Actions/orderActions'
 import { getCustomerDetails } from '../Actions/userActions'
+import { listRetailerOwnerDetails } from '../Actions/retailerActions'
 
 
 const RetailerOrderReviewScreen = ({ match, history }) => {
@@ -27,6 +28,10 @@ const RetailerOrderReviewScreen = ({ match, history }) => {
 
     const orderDeliver = useSelector((state) => state.orderDeliver)
     const { loading: loadingDeliver, success: successDeliver } = orderDeliver
+
+    const retailerDetailsOwner = useSelector(state => state.retailerDetailsOwner)
+    const { retailerDetail, loading: loadingRDetails, error: errorRDetails } = retailerDetailsOwner
+
 
     //calculate prices
 
@@ -59,6 +64,7 @@ const RetailerOrderReviewScreen = ({ match, history }) => {
             // dispatch({ type: ORDER_PAY_RESET })
             dispatch({ type: 'ORDER_DELIVER_RESET' })
             dispatch(getRetailerOrderDetails(orderId))
+            dispatch(listRetailerOwnerDetails(userInfo._id))
         }
 
         if (order && order._id && !customer.name) {
@@ -91,7 +97,9 @@ const RetailerOrderReviewScreen = ({ match, history }) => {
     return loading ? (<Loader />)
         : (
             <>
-                <img className="w-100" src={"/images/account.jpg"} alt="account banner" />
+                {retailerDetail &&
+                    <img className="w-100" src={retailerDetail.image} alt="account banner" />
+                }
                 {loadingCustomer ? (<Loader />) : (
                     <Container>
 
