@@ -164,7 +164,7 @@ const getRetailerOrderDetails = asyncHandler(async (req, res) =>{
 })
 
 const getRetailerDetails = asyncHandler(async (req, res) =>{
-    console.log('WARNING WARNING')
+    
     const retail = await Store.findOne({owner:req.user._id}) 
 
     if (retail){
@@ -174,6 +174,27 @@ const getRetailerDetails = asyncHandler(async (req, res) =>{
         throw new Error('Store not found!')
         
     }
+
+})
+
+const getDashboard = asyncHandler(async (req, res) =>{
+    
+    const store = await Store.findOne({owner:req.user.id})
+
+    const orders = await StoreOrders.find({store:store._id})
+
+    var total = 0;
+    
+    for(var i=0; i < orders.length;i++){
+        total+=orders[i].totalPrice
+    }
+
+    res.json(
+        {
+            total: total,
+            orderCount:orders.length,
+        }
+    )
 
 })
 
@@ -279,6 +300,7 @@ export {
     updateRetailer,
     getRetailerOrders,
     getRetailerOrderDetails,
-    getRetailerDetails
+    getRetailerDetails,
+    getDashboard,
 }
 

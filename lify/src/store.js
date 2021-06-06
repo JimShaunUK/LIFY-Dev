@@ -2,7 +2,7 @@ import {createStore, combineReducers, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
 import {productListReducer, productDetailsReducer, productListByRetailerReducer, searchAllReducer, productDeleteReducer, productCreateReducer, productUpdateReducer, productListManageReducer} from './Reducers/productReducers'
-import { retailerDetailsOwnerReducer, retailerDetailsReducer, retailerListReducer } from './Reducers/retailerReducers'
+import { retailerDetailsOwnerReducer, retailerDetailsReducer, retailerListReducer, retailerDashboardReducer } from './Reducers/retailerReducers'
 import { townDetailsReducer, townListReducer } from './Reducers/townReducers'
 import { customerDetailsReducer, userDeleteReducer, userDetailsReducer, userListReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer, userUpdateReducer } from './Reducers/userReducers'
 import { orderCreateReducer, orderDeliverReducer, orderDetailsReducer, orderListMyReducer, orderListReducer, orderPayReducer, retailerOrderDetailsReducer, retailerOrderListReducer } from './Reducers/orderReducers'
@@ -11,15 +11,14 @@ import { cartReducer } from './Reducers/cartReducer'
 const reducer = combineReducers({
 
     productManageList:productListManageReducer,
-     productList:productListReducer,
+    productList:productListReducer,
     productDetails:productDetailsReducer,
     productDelete:productDeleteReducer,
     productCreate:productCreateReducer,
     productUpdate:productUpdateReducer,
-
-
     retailerList:retailerListReducer,
     retailerDetails:retailerDetailsReducer,
+    retailerDashboard:retailerDashboardReducer,
     townList:townListReducer,
     townDetails:townDetailsReducer,
     productListByRetailer:productListByRetailerReducer,

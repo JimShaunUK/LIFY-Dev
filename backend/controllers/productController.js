@@ -224,27 +224,34 @@ const deleteProduct = asyncHandler(async (req, res) =>{
 
 //ADMIN CREATE PRODUCT
 const createProduct = asyncHandler(async (req, res) =>{
+
+    console.log('HELLO')
+    const retailer = await Store.findOne({owner: req.user._id})
    
+
     const product = new Product({
-        name:"Sample Name",
-        price: 0,
-        user: req.user._id,
-        artist: "Sample Artist",
-        stock: 0,
+        name:"Coming Soon...",
+        town:  retailer.town,
         image: '/images/sample.jpg',
-        description: 'Sample Description'
+        price: 0,
+        stock: 0,
+        description: "We're just getting set up!",
+        canDeliver: false,
+        store: retailer._id,
     })
 
     const createProduct = await product.save()
     res.status(201).json(createProduct)
 })
 
+
+ 
 //ADMIN UPDATE PRODUCT
 //ADMIN CREATE PRODUCT
 const updateProduct = asyncHandler(async (req, res) =>{
    
         
-    const{name, price, description, artist, stock, image} = req.body
+    const{name, price, description, image, stock, canDeliver} = req.body
 
     const product = await Product.findById(req.params.id)
 
@@ -255,7 +262,8 @@ const updateProduct = asyncHandler(async (req, res) =>{
         product.description = description
         product.image = image
         product.stock = stock
-        product.artist = artist
+        product.canDeliver = canDeliver
+
 
         const updatedProduct = await product.save()
         res.status(201).json(updatedProduct)

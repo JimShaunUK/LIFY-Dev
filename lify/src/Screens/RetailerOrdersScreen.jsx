@@ -3,7 +3,7 @@ import { Form, Button, Row, Col, FormControl, Table, Container } from 'react-boo
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUserProfile, logout } from '../Actions/userActions'
 import { listMyOrders, listRetailerOrders } from '../Actions/orderActions'
-import { listRetailerOwnerDetails } from '../Actions/retailerActions'
+import { listRetailerOwnerDetails, listDashboardData } from '../Actions/retailerActions'
 import Loader from '../Components/Loader'
 import Message from '../Components/Message'
 import { Link } from 'react-router-dom'
@@ -33,14 +33,14 @@ const ProfileScreen = ({ location, history }) => {
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
     const { success } = userUpdateProfile
 
-    //const orderListMy = useSelector(state => state.orderListMy)
-    //const { orders, loading: loadingOrders, error: errorOrders } = orderListMy
-
     const retailerOrderList = useSelector(state => state.retailerOrderList)
     const { retailOrders, loading: loadingROrders, error: errorROrders } = retailerOrderList
 
     const retailerDetailsOwner = useSelector(state => state.retailerDetailsOwner)
     const { retailerDetail, loading: loadingRDetails, error: errorRDetails } = retailerDetailsOwner
+
+    const retailerDashboard = useSelector(state => state.retailerDashboard)
+    const { dashboard, loading: loadingDash, error: errorDash } = retailerDashboard
 
 
     useEffect(() => {
@@ -63,6 +63,7 @@ const ProfileScreen = ({ location, history }) => {
             dispatch(listMyOrders())
             dispatch(listRetailerOrders())
             dispatch(listRetailerOwnerDetails(user._id))
+            dispatch(listDashboardData())
         } else {
             setName(user.name)
             setEmail(user.email)
@@ -96,6 +97,11 @@ const ProfileScreen = ({ location, history }) => {
         display: 'block'
     }
 
+    const green = {
+        fontWeight: 'bold',
+        color: 'green'
+    }
+
     const red = {
         color: 'red',
         fontWeight: 'bold'
@@ -122,6 +128,27 @@ const ProfileScreen = ({ location, history }) => {
             </>
         )}
         {errorRDetails && <Message variant="danger">{errorRDetails}</Message>}
+
+
+        {dashboard && (
+            <Container>
+                <Row className="justify-content-center checkout-text py-2">
+                    <h2 className="shop-header-large py-3 text-center">by being part of lify you have</h2>
+                    <Col xs={4}>
+                        <h2 className="shop-header-large py-3 text-center">total sales: <span style={green}>£{dashboard.total}</span></h2>
+                    </Col>
+                    <Col xs={4}>
+                        <h2 className="shop-header-large py-3 text-center">total new orders: <span style={green}>{dashboard.orderCount}</span></h2>
+                    </Col>
+                </Row>
+            </Container>
+
+        )}
+
+
+
+
+
 
         <Container >
             <Row>

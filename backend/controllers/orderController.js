@@ -86,9 +86,28 @@ const addOrderItems = asyncHandler(async (req, res) =>{
 const getOrderById = asyncHandler(async (req, res) =>{
 
     const order = await CustomerOrder.findById(req.params.id).populate('user', 'name email') 
-
+    const status=[]
     if (order){
-        res.json(order)
+
+        if (!order.isReady){
+            const attachedOrders = order.storeOrders
+            for(var i=0; i<attachedOrders.length; i++){
+                var found = await StoreOrder.findById(attachedOrders[i]._id)
+                status.push(found.isReady)
+            }
+            console.log(status)
+            if (status.includes(false)) {
+                res.json(order)
+            }
+            else{
+                order.isReady=true
+                const update = await order.save()
+                res.json(update)
+            }
+        }
+        else{
+            res.json(order)
+        }
     }else{
         res.status(404)
         throw new Error('Order not found!')

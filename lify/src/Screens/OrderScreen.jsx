@@ -87,7 +87,7 @@ const OrderScreen = ({ match, history }) => {
                                 <strong>Address: </strong>
                                 {order.shippingAddress}, {order.postcode}
                                 <br></br><br></br>
-                                {order.isDelivered ? <Message variant="success">Dispatched on: {order.deliveredAt.substring(0, 10)}</Message> :
+                                {order.isReady ? <Message variant="success">Marked as ready for delivery/collection</Message> :
                                     <Message variant='danger'>order confirmed, but its not ready yet!</Message>}
 
 

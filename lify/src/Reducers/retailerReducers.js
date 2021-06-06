@@ -81,3 +81,17 @@ export const retailerUpdateReducer = (state = {retailer:{}}, action)=>{
             return state
     }
 }
+
+
+export const retailerDashboardReducer = (state = {dashboard: {}}, action)=>{
+    switch (action.type){
+        case 'RETAILER_DASHBOARD_REQUEST':
+            return {loading:true, ...state}
+        case 'RETAILER_DASHBOARD_SUCCESS':
+            return {loading:false, dashboard: action.payload}
+        case 'RETAILER_DASHBOARD_FAIL':
+            return {loading:false, error: action.payload}
+        default:
+            return state
+    }
+}
