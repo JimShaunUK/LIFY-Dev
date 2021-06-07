@@ -12,10 +12,11 @@ import {protect, adminCheck, retailerCheck} from '../middleware/authorizeMiddlew
 
 //get all products from backend
 
-router.route('/').post(protect, addOrderItems).get(protect, adminCheck, getOrders)
+router.route(('/')).get(protect, adminCheck, getOrders)
+
 router.route('/myorders').get(protect, getMyOrders)
 
-
+router.route('/new').post(protect, addOrderItems)
 router.route(('/:id')).get(protect, getOrderById)
 
 

@@ -19,7 +19,7 @@ const addOrderItems = asyncHandler(async (req, res) =>{
         } = req.body
 
         
-    
+    try{
     if (cartItems && cartItems.length===0){
         res.status(400)
         throw new Error('No items in order!')
@@ -79,7 +79,11 @@ const addOrderItems = asyncHandler(async (req, res) =>{
     
     res.status(201).json(createdOrder)
     }
-
+}
+catch(error){
+    res.status(404)
+    throw new Error(error)
+}
 
 })
 

@@ -93,7 +93,6 @@ const customer_orderSchema = mongoose.Schema({
     },
     assignedCourier:{
         type:mongoose.Schema.Types.ObjectId,
-        required:true,
         ref:'User'
     }
 },{

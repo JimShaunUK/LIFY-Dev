@@ -127,7 +127,7 @@ const RetailerOrderReviewScreen = ({ match, history }) => {
                                     {loadingDeliver && <Loader />}
                                     {userInfo && userInfo.isRetailer && order.isPaid && !order.isDispatched && (
                                         <ListGroupItem>
-                                            <Button style={btnStyle} type="button" className="btn w-100" onClick={deliverHandler}>Mark as Dispatched</Button>
+                                            <Button style={btnStyle} type="button" className="btn w-100" onClick={deliverHandler}>Mark as Ready</Button>
                                         </ListGroupItem>
                                     )}
 
