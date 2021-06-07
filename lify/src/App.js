@@ -25,6 +25,10 @@ import RetailerOrdersScreen from './Screens/RetailerOrdersScreen'
 import RetailerOrderReviewScreen from './Screens/RetailerOrderReviewScreen'
 import ProductListScreen from './Screens/ProductListScreen'
 import ProductEditScreen from './Screens/ProductEditScreen'
+
+//courierScreens
+import AvailableDeliveriesScreen from './Screens/AvailableDeliveryScreen'
+import DeliveryScreen from './Screens/DeliveryScreen'
 //Admin Only Screens
 
 
@@ -61,6 +65,10 @@ function App() {
 
         <Route path='/retailer/productlist' component={ProductListScreen} />
          <Route path='/retailer/product/:id/edit' component={ProductEditScreen} />
+
+
+         <Route path='/courier/available' component={AvailableDeliveriesScreen} exact/>
+         <Route path='/deliver/:id' component={DeliveryScreen} />
       </div>
       
       <Footer />

@@ -56,7 +56,7 @@ else{
 
 const courierCheck = (req, res, next)=>{
 
-if(req.user && req.user.isRetailer){
+if(req.user && req.user.isCourier){
     next()
 }
 else{

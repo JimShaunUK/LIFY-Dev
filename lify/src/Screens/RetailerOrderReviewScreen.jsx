@@ -111,13 +111,15 @@ const RetailerOrderReviewScreen = ({ match, history }) => {
                                     <ListGroup.Item className="checkout-text py-2">
                                         <>
                                             <h3 className='shop-header-large py-3 text-center'>Customer Details</h3>
+                                            {order.isCollection ? <Message variant="info">this order is for collection only</Message> :
+                                                <Message variant='info'>this order is for delivery</Message>}
                                             <strong>Name:</strong>{customer.name}<br></br>
                                             <strong>Email: </strong><a href={`mailto:${customer.email}`}>{customer.email}</a><br></br>
                                             <strong>Address: </strong>
                                             {customer.address}
                                             <br></br><br></br>
                                             {order.isReady ? <Message variant="success">order marked as ready</Message> :
-                                                <Message variant='danger'>order confirmed, but its not ready yet!</Message>}
+                                                <Message variant='danger'>you have not marked this as ready for collection/delivery!</Message>}
                                         </>
 
                                     </ListGroup.Item>

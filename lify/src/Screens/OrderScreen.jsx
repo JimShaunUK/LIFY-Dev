@@ -82,12 +82,14 @@ const OrderScreen = ({ match, history }) => {
                         <ListGroup variant='flush'>
                             <ListGroup.Item className="checkout-text py-2">
                                 <h3 className='shop-header-large py-3 text-center'>Shipping</h3>
+                                {order.isCollection ? <Message variant="info">this order is for collection only</Message> :
+                                    <Message variant='info'>this order is for delivery</Message>}
                                 <strong>Name:</strong>{order.user.name}<br></br>
                                 <strong>Email: </strong><a href={`mailto:${userInfo.email}`}>{userInfo.email}</a><br></br>
                                 <strong>Address: </strong>
                                 {order.shippingAddress}, {order.postcode}
                                 <br></br><br></br>
-                                {order.isReady ? <Message variant="success">Marked as ready for delivery/collection</Message> :
+                                {order.isReady ? <Message variant="success">Marked as ready!</Message> :
                                     <Message variant='danger'>order confirmed, but its not ready yet!</Message>}
 
 

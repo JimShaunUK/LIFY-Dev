@@ -100,6 +100,15 @@ const Header = ({ history }) => {
 
                                     </>
                                 )}
+                                {userInfo && userInfo.isCourier && (
+                                    <>
+                                        <hr />
+                                        <Link to="/courier/available">
+                                            <div className="nav-block-retailer py-1  my-1 mx-1 nav-text">courier: get delivery</div>
+                                        </Link>
+
+                                    </>
+                                )}
                                 {userInfo && userInfo.isAdmin && (
                                     <>
                                         <Link to="">

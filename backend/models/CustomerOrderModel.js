@@ -75,6 +75,9 @@ const customer_orderSchema = mongoose.Schema({
         required:true,
         default:false
     },
+    dispatchedAt:{
+        type:Date,
+    },
     isReady:{
         type:Boolean,
         required:true,
@@ -82,6 +85,16 @@ const customer_orderSchema = mongoose.Schema({
     },
     deliveredAt:{
         type:Date
+    },
+    isAssignedCourier:{
+        type: Boolean,
+        required:true,
+        default: false,
+    },
+    assignedCourier:{
+        type:mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref:'User'
     }
 },{
     timestamps:true

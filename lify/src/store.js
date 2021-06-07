@@ -7,6 +7,7 @@ import { townDetailsReducer, townListReducer } from './Reducers/townReducers'
 import { customerDetailsReducer, userDeleteReducer, userDetailsReducer, userListReducer, userLoginReducer, userRegisterReducer, userUpdateProfileReducer, userUpdateReducer } from './Reducers/userReducers'
 import { orderCreateReducer, orderDeliverReducer, orderDetailsReducer, orderListMyReducer, orderListReducer, orderPayReducer, retailerOrderDetailsReducer, retailerOrderListReducer } from './Reducers/orderReducers'
 import { cartReducer } from './Reducers/cartReducer'
+import {courierListReducer, courierAcceptReducer, getDeliveryDataReducer, deliveryCompleteReducer} from './Reducers/courierReducers'
 
 const reducer = combineReducers({
 
@@ -16,6 +17,10 @@ const reducer = combineReducers({
     productDelete:productDeleteReducer,
     productCreate:productCreateReducer,
     productUpdate:productUpdateReducer,
+    deliveryData:getDeliveryDataReducer,
+    deliveryComplete:deliveryCompleteReducer,
+    courierList:courierListReducer,
+    courierAccept:courierAcceptReducer,
     retailerList:retailerListReducer,
     retailerDetails:retailerDetailsReducer,
     retailerDashboard:retailerDashboardReducer,

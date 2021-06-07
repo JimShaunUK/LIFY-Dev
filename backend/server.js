@@ -14,6 +14,7 @@ import userRoutes from './routes/userRoutes.js'
 import retailerRoutes from './routes/retailerRoutes.js'
 import townRoutes from './routes/townRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
+import courierRoutes from './routes/courierRoutes.js'
 import uploadRoutes from './routes/uploadRoutes.js'
 const app = express()
 
@@ -29,6 +30,7 @@ app.use('/api/retailer', retailerRoutes)
 app.use('/api/towns', townRoutes)
 app.use('/api/orders', orderRoutes)
 app.use('/api/upload', uploadRoutes)
+app.use('/api/courier', courierRoutes)
 
 const __dirname = path.resolve()
 app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
