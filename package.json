@@ -18,7 +18,8 @@
     "data:importstoreorder": "node backend/seeders/seeder -so",
     "data:importfault": "node backend/seeders/seeder -tst",
     "data:importfix": "node backend/seeders/seeder -f",
-    "data:wipe": "node backend/seeder -d"
+    "data:wipe": "node backend/seeder -d",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix lify && npm run build --prefix lify "
   },
   "keywords": [
     "shopping"
