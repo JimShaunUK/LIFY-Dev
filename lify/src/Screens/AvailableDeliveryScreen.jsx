@@ -153,7 +153,7 @@ const AvailableDeliveryScreen = ({ location, history }) => {
                                                 <td>{order.postcode}</td>
                                                 <td>{order.orderItems.length}</td>
                                                 <td>{order.storeOrders.length}</td>
-                                                <td>£{order.deliveryPrice}</td>
+                                                <td>£3</td>
                                                 <td>
                                                     {order.isAssignedCourier ? (<p>Order Assigned</p>) : (
                                                         <Button onClick={() => selectHandler(order)} style={btnStyle}>
