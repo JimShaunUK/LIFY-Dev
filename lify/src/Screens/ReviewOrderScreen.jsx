@@ -34,7 +34,7 @@ const ReviewOrderScreen = ({ match, location, history }) => {
     const [town, setTown] = useState()
     const [county, setCounty] = useState()
     const [postcode, setPostcode] = useState()
-    const [delivery, setDelivery] = useState(true)
+    const [delivery, setDelivery] = useState(false)
     const [deliveryFee, setDeliveryFee] = useState(0)
     const [startDate, setStartDate] = useState(new Date())
 
@@ -68,32 +68,26 @@ const ReviewOrderScreen = ({ match, location, history }) => {
         dispatch(removeFromCart(id))
     }
 
-    const deliveryOption = () => {
-        if (delivery) {
-            setDelivery(false)
+    const deliveryOption = (e) => {
+
+        if (e === true) {
+            setDelivery('true')
             setDeliveryFee(0)
+
         }
         else {
+            setDelivery('false')
+            setDeliveryFee(3)
 
-            setDelivery(true)
-            setDeliveryFee(4)
         }
     }
-    const checkOutHandler = () => {
 
-        if (userInfo.length === 0 || !userInfo) {
-
-            history.push('/register')
-        }
-        else {
-            history.push('/checkout')
-        }
-    }
 
 
 
 
     const submitHandler = () => {
+
         let billingAddress = `${streetAddress}, ${town}, ${county}`
         const totalPrice = Number(cart.cartItems.reduce((acc, item) => acc + item.qty * item.price, 0) + deliveryFee + 3).toFixed(2)
         let PostCode = `${postcode}`
@@ -259,15 +253,26 @@ const ReviewOrderScreen = ({ match, location, history }) => {
                             </Form.Group>
 
                             <Form.Group controlId='delivery'>
-                                <h4 className="checkout-text text-center py-3">Collection or Delivery?</h4>
-                                <FormControl
-                                    type='delivery'
-                                    placeholder='Select delivery method...'
-                                    onChange={deliveryOption}
-                                    as="select">
-                                    <option value="true">collection</option>
-                                    <option value="false">delivery</option>
-                                </FormControl>
+                                <Form.Label>Select Delivery Method</Form.Label>
+
+                                <Col>
+                                    <Form.Check
+                                        type='radio'
+                                        label='Collection from store'
+                                        id='Stripe'
+                                        name='delivery'
+                                        value={false}
+                                        checked
+                                        onClick={(e) => deliveryOption(e.target.value)}
+                                    ></Form.Check>
+                                    <Form.Check
+                                        type='radio'
+                                        label='Bicycle Delivery'
+                                        name='delivery'
+                                        value={true}
+                                        onClick={(e) => deliveryOption(e.target.value)}
+                                    ></Form.Check>
+                                </Col>
                             </Form.Group>
 
                             <Form.Group>

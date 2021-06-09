@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col, FormControl, Table, Container } from 'react-bootstrap'
+import { Button, Row, Col, Table, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getUserDetails, updateUserProfile, logout } from '../Actions/userActions'
 import { listMyOrders, listRetailerOrders } from '../Actions/orderActions'

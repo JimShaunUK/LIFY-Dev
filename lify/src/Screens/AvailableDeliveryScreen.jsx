@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col, FormControl, Table, Container } from 'react-bootstrap'
+import { Button, Row, Col, Table, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { getUserDetails, updateUserProfile, logout } from '../Actions/userActions'
-import { listMyOrders, listRetailerOrders } from '../Actions/orderActions'
-import { listRetailerOwnerDetails, listDashboardData } from '../Actions/retailerActions'
+import { getUserDetails } from '../Actions/userActions'
+
 import Loader from '../Components/Loader'
 import Message from '../Components/Message'
-import { Link } from 'react-router-dom'
 import { courierAcceptOrder, listCourierOrders } from '../Actions/courierActions'
 
 

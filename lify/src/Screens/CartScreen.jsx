@@ -69,7 +69,7 @@ const CartScreen = ({ match, location, history }) => {
             </Row>
             <Row className="justify-content-center">
 
-                <Col xs={10}>
+                <Col xs={12}>
 
                     <h2 className="shop-header-large py-3 text-center">my basket</h2>
                     {cart.cartItems.length === 0 ? (<h2 className="shop-header-large py-3 text-center">Your basket is empty!<Link className="btn btn-outline-primary rounded mx-3" onClick={goBack}>Back to Shop?</Link></h2>

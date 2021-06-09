@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, ListGroup, Image, Card, Button, ListGroupItem, Container } from 'react-bootstrap'
+import { Row, Col, Container } from 'react-bootstrap'
 
 const AboutScreen = () => {
 

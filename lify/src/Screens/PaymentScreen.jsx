@@ -4,9 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Card, Container, } from 'react-bootstrap'
 import { addToCart, removeFromCart } from '../Actions/cartActions'
 import CheckoutProgressBar from '../Components/CheckoutProgressBar'
-import FormContainer from '../Components/FormContainer'
-import Message from '../Components/Message'
-import DatePicker from 'react-date-picker'
+
 
 //stripe
 import { Elements } from "@stripe/react-stripe-js"

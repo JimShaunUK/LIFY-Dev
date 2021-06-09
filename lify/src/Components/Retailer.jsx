@@ -14,7 +14,7 @@ const Retailer = ({ retailer }) => {
     return (
         <Card style={tableStyle} key={retailer._id} className="product-slide rounded-0 m-0 p-0">
             <Link to={`/town/retailer/products/${retailer._id}`}>
-                <Card.Img src={retailer.image} />
+                <Card.Img src={retailer.image} alt={retailer.name} />
             </Link>
             <Card.Body>
 

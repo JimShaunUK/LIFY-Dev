@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { Row, Col, ListGroup, Image, Button, ListGroupItem, Container } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Loader from '../Components/Loader'
 import Message from '../Components/Message'
-import { getOrderDetails, deliverOrder } from '../Actions/orderActions'
+import { getOrderDetails } from '../Actions/orderActions'
 import { getDeliveryData, completeDelivery } from '../Actions/courierActions'
 
 

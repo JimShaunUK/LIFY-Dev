@@ -29,7 +29,7 @@ const HomeScreen = (location, history) => {
                     <div className="scrolling-wrapper-flexbox py-4">
 
                         <Card bg="dark" border="none" variant="dark" className="item mx-3" style={{ width: '18rem' }}>
-                            <Card.Img src={"images/antiques.jpeg"} />
+                            <Card.Img src={"images/antiques.jpeg"} alt="antiques" />
                             <Card.Body>
                                 <Card.Title><h4 className="white text-center">antiques and restoration</h4></Card.Title>
                                 <Card.Text>
@@ -40,7 +40,7 @@ const HomeScreen = (location, history) => {
                             </Card.Body>
                         </Card>
                         <Card bg="dark" border="none" variant="dark" className="item mx-3" style={{ width: '18rem' }}>
-                            <Card.Img src={"images/wine.jpeg"} />
+                            <Card.Img src={"images/wine.jpeg"} alt="wine" />
                             <Card.Body>
                                 <Card.Title><h4 className="white text-center">beer and wine</h4></Card.Title>
                                 <Card.Text>
@@ -52,7 +52,7 @@ const HomeScreen = (location, history) => {
                         </Card>
 
                         <Card bg="dark" border="none" variant="dark" className="item mx-3" style={{ width: '18rem' }}>
-                            <Card.Img src={"images/craft.jpeg"} />
+                            <Card.Img src={"images/craft.jpeg"} alt="arts and crafts" />
                             <Card.Body>
                                 <Card.Title><h4 className="white text-center">craft and hobbies</h4></Card.Title>
                                 <Card.Text>
@@ -64,7 +64,7 @@ const HomeScreen = (location, history) => {
                         </Card>
 
                         <Card bg="dark" border="none" variant="dark" className="item mx-3" style={{ width: '18rem' }}>
-                            <Card.Img src={"images/coffee.jpeg"} />
+                            <Card.Img src={"images/coffee.jpeg"} alt="coffee" />
                             <Card.Body>
                                 <Card.Title><h4 className="white text-center">coffee and tea</h4></Card.Title>
                                 <Card.Text>
@@ -76,7 +76,7 @@ const HomeScreen = (location, history) => {
                         </Card>
 
                         <Card bg="dark" border="none" variant="dark" className="item mx-3" style={{ width: '18rem' }}>
-                            <Card.Img src={"images/clothes.jpeg"} />
+                            <Card.Img src={"images/clothes.jpeg"} alt="clothing" />
                             <Card.Body>
                                 <Card.Title><h4 className="white text-center">vintage and tailored</h4></Card.Title>
                                 <Card.Text>

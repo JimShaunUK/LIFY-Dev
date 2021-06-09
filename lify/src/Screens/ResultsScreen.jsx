@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, Row, Col, FormControl, Table, Container } from 'react-bootstrap'
-import { LinkContainer } from 'react-router-bootstrap'
+import React, { useEffect } from 'react'
+import { Button, Row, Col, Container } from 'react-bootstrap'
+
 import { useDispatch, useSelector } from 'react-redux'
 import { searchProducts } from '../Actions/productActions'
 import Product from '../Components/Product'
 import Retailer from '../Components/Retailer'
 import Town from '../Components/Town'
-import { Link } from 'react-router-dom'
+
 
 import Loader from '../Components/Loader'
 import Message from '../Components/Message'

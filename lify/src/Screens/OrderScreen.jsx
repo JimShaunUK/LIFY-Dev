@@ -37,9 +37,9 @@ const OrderScreen = ({ match, history }) => {
         }
 
         order.itemsPrice = addDecimals(order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0))
-        order.shippingPrice = addDecimals(5)
-        order.handling = addDecimals(Number((order.itemsPrice * 0.0255).toFixed(2)))
-        order.totalPrice = addDecimals((Number(order.itemsPrice) + Number(order.shippingPrice) + Number(order.handling)))
+        //order.shippingPrice = addDecimals(5)
+        //order.handling = addDecimals(Number((order.itemsPrice * 0.0255).toFixed(2)))
+        //order.totalPrice = addDecimals((Number(order.itemsPrice) + Number(order.shippingPrice) + Number(order.handling)))
     }
 
 
@@ -182,13 +182,16 @@ const OrderScreen = ({ match, history }) => {
                                 <ListGroupItem>
                                     <Row>
                                         <Col className="checkout-text">Items</Col>
-                                        <Col className="checkout-text">£ {order.itemsPrice}</Col>
+                                        <Col className="checkout-text">£{order.itemsPrice}</Col>
                                     </Row>
                                 </ListGroupItem>
                                 <ListGroupItem>
                                     <Row>
                                         <Col className="checkout-text">delivery cost</Col>
-                                        <Col className="checkout-text">£ {order.deliveryPrice}</Col>
+                                        <Col className="checkout-text">£{
+                                            order.isCollection ? (0) : (3)
+
+                                        }</Col>
                                     </Row>
                                 </ListGroupItem>
                                 <ListGroupItem>

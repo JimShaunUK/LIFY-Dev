@@ -15,7 +15,7 @@ const Town = ({ town }) => {
     return (
         <Card style={tableStyle} key={town._id} className="product-slide my-0 p-0">
             <Link to={`/town/products/${town._id}`}>
-                <Card.Img src={town.image} />
+                <Card.Img src={town.image} alt={town.name} />
             </Link>
             <Card.Body>
                 <Link to={`/town/products/${town._id}`}>
